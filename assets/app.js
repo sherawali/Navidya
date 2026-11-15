@@ -1,7 +1,7 @@
 /* JNVST mock tests – plain ES5, no dependencies, works from any static host (GitHub Pages) */
 (function () {
   'use strict';
-  var V = '1';
+  var V = 2;
   var $app = document.getElementById('app');
   var $toast = document.getElementById('toast');
   var INDEX = window.JNV_INDEX || [];

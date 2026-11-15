@@ -3,12 +3,13 @@
 @date 20 January 2024
 @booklet VS246J ENGL
 @code J
-@omit 41 42
 @key41 AACDADBBBDDCCDADACCBACADCABADCDBCDABACCC
-@keynote Q41-80: coaching key (Kranthi Keen, Set J), har answer dobara solve karke check kiya gaya — sab match. Q41 (bar chart) aur Q42 (angle figure) chitra par aadharit hain aur chitra uplabdh nahi tha, isliye ye do sawal is mock me shamil nahi hain.
+@keynote Q41-80: coaching key (Kranthi Keen, Set J), har answer dobara solve karke check kiya gaya — sab match; Section II ke uttar The Speedy Brains ki key se bhi milte hain. Q41 (bar chart) aur Q42 (kon ka chitra) ke chitra asli paper ke aankdon se dobara banaye gaye hain — maap aur sankhyayen wahi hain.
+@note41 Chitra asli paper ke aankdon se dobara banaya gaya hai. Australia 32 − Pakistan 24 = 8.
+@note42 Chitra asli paper ke anusaar dobara banaya gaya hai (paimane par nahi). x + 2x + 4x + 6x + 100° = 360°, isliye 13x = 260°, x = 20°. Kon: 20°, 40°, 80°, 120°.
 [ARITH]
-41. OMITTED | - | - | - | -
-42. OMITTED | - | - | - | -
+41. The given bar chart shows the number of matches played by cricket teams of different countries in a year. How many more matches were played by Australia than Pakistan ? [[img:q41.png]] | 8 | 2 | 4 | 6
+42. In the figure, the measures of ∠AOB, ∠BOC, ∠COD and ∠DOE respectively are : [[img:q42.png]] | 20°, 40°, 80°, 120° | 30°, 30°, 70°, 130° | 40°, 30°, 120°, 70° | 50°, 20°, 80°, 110°
 43. 30009 is same as : | 30 ten thousands and 9 tens | 30 thousands and 9 hundreds | 3 ten thousands and 9 ones | 3 ten thousands and 9 tens
 44. If the sum of two angles is an obtuse angle, then which of the following is not possible ? | one right angle and one acute angle. | one obtuse angle and one acute angle. | two acute angles. | two right angles.
 45. Sumit weighs 107 kg and Sanjay weighs 82 kg. The difference of their weight if the weight of each is rounded off to the nearest tens is : | 30 kg | 100 kg | 40 kg | 20 kg

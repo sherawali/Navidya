@@ -16,8 +16,8 @@ Pure static site (HTML + CSS + JS, no build step, no server, no external librari
 | Paper | Exam date | Booklet | Status |
 |---|---|---|---|
 | JNVST 2026 | 13 Dec 2025 | IB266D ENGL – E | **Full paper**: 80 Q with real figures, official NVS key |
-| JNVST 2025 | 18 Jan 2025 | SS256J ENGL – D | Section II + III (39 Q; Q53 left out). Mental Ability figures not added yet |
-| JNVST 2024 | 20 Jan 2024 | VS246J ENGL – J | Section II + III (38 Q; figure-based Q41, Q42 left out). Mental Ability figures not added yet |
+| JNVST 2025 | 18 Jan 2025 | SS256J ENGL – D | Section II + III (40 Q). Mental Ability figures not added yet |
+| JNVST 2024 | 20 Jan 2024 | VS246J ENGL – J | Section II + III (40 Q; Q41, Q42 figures redrawn from the booklet data by `tools/draw2024.py`). Mental Ability figures not added yet |
 | JNVST 2023 | 29 Apr 2023 | NJ623 ENGL – J | Section II + III (40 Q). Mental Ability figures not added yet |
 | JNVST 2022 | 30 Apr 2022 | AP ENGL – G | Section II + III (40 Q). Mental Ability figures not added yet |
 | JNVST 2021 | 11 Aug 2021 | APST21 ENGL – W | Section II + III (40 Q). Mental Ability figures not added yet |

@@ -3,9 +3,8 @@
 @date 18 January 2025
 @booklet SS256J ENGL
 @code D
-@omit 53
 @key41 CBACACBBCCCBABDBBDBADBDBABADBDACACADDACB
-@keynote Q41-80: do coaching keys (Kranthi Keen aur Education Observer, Set D) aapas me kai jagah alag thi; isliye har sawal khud solve karke sahi uttar rakha gaya hai. Q53 ke options scan me saaf nahi the, isliye wo sawal is mock me shamil nahi hai.
+@keynote Q41-80: do coaching keys (Kranthi Keen aur Education Observer, Set D) aapas me kai jagah alag thi; isliye har sawal khud solve karke sahi uttar rakha gaya hai. Section II ke 20 uttar The Speedy Brains ki key se bhi mila liye gaye hain (sab same).
 @note56 Asli paper me yahan chaar aayaton (rectangles) ka chitra tha; yahan unke maap text me likhe gaye hain. (b) 14 × 14 = 196 sabse bada.
 @note60 Asli paper me yahan bar graph tha; yahan uske aankde text me likhe gaye hain. (6 + 10) − (4 + 8) = 4.
 [ARITH]
@@ -21,7 +20,7 @@
 50. Suresh left his home at 9:00 a.m. to meet his uncle. He walked for 10 minutes, travelled in bus for 1 hour 05 minutes and then walked for 15 minutes to reach his uncle's home. He stayed there for 3 hours 20 minutes and reached his home at 3:30 p.m. How much time did he take on the return journey ? | 1 hour 30 minutes | 1 hour 35 minutes | 1 hour 40 minutes | 1 hour 45 minutes
 51. The simplest fraction form of 20.0925 is : | {803.7/400} | {8037/200} | {8037/400} | {8037/4000}
 52. A square park is of side 50 m. There is a path 2.5 m wide running all around inside it. The cost of levelling the path (in ₹) at ₹ 10 per square metre is : | 4,500 | 4,750 | 5,000 | 5,250
-53. OMITTED | - | - | - | -
+53. What should be subtracted from {33/40} to get {11/40} ? | {11/20} | 22 | {11/40} | {3/5}
 54. Teena purchased a scooter for ₹ 55,000. She spent ₹ 3,400 on its repair. She sold the scooter to her friend for ₹ 56,030. Her profit or loss is : | Profit of ₹ 2,370 | Loss of ₹ 2,370 | Profit of ₹ 1,030 | Loss of ₹ 1,030
 55. A shopkeeper buys at the rate of 5 toffees for a rupee and sells at the rate of 4 toffees for a rupee. The number of toffees sold, so as to earn a profit of ₹ 125 is : | 1,200 | 1,500 | 2,000 | 2,500
 56. Which of the following rectangles has maximum area and how much is the maximum area (in sq. cm) ?¶Rectangle (a) : 18 cm × 10 cm ; Rectangle (b) : 14 cm × 14 cm ; Rectangle (c) : 16 cm × 12 cm ; Rectangle (d) : 17 cm × 11 cm | Rectangle (c), 192 | Rectangle (b), 196 | Rectangle (d), 212 | Rectangle (a), 280
