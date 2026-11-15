@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Build papers/<id>/paper.js + papers/index.js from tools/src/<id>.txt
 Run from repo root or tools/:  python3 tools/build.py
-MAT (Q1-40) is included only when papers/<id>/q01.png ... q40.png exist and @key1 is given."""
+MAT (Q1-40) is included when all 40 figures exist in papers/<id>/ and a key is known:
+  - scanned figures  q01.png ... (or q05a.png + q05b.png)  with @key1 in the source file, or
+  - generated practice figures  q01.svg ...  with tools/gen/<id>.json  (written by tools/matgen.py)."""
 import json, os, re, glob, struct
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +30,13 @@ def png_size(p):
         h = f.read(24)
     return struct.unpack('>II', h[16:24])
 
+def svg_size(p):
+    m = re.search(r'<svg[^>]*\swidth="(\d+)"[^>]*\sheight="(\d+)"', open(p, encoding='utf-8').read(400))
+    return int(m.group(1)), int(m.group(2))
+
+def img_size(p):
+    return svg_size(p) if p.endswith('.svg') else png_size(p)
+
 def parse_q(line):
     m = re.match(r'(\d+)\.\s*(.*)$', line)
     n = int(m.group(1)); parts = [x.strip() for x in m.group(2).split(' | ')]
@@ -50,14 +59,24 @@ def build(path):
     assert len(meta['key41']) == 40
     for i, c in enumerate(meta['key41']): key[41 + i] = c
     def figs(n):
-        one = os.path.join(pdir, 'q%02d.png' % n); a = os.path.join(pdir, 'q%02da.png' % n); b = os.path.join(pdir, 'q%02db.png' % n)
-        if os.path.exists(a) and os.path.exists(b):
-            (aw, ah), (bw, bh) = png_size(a), png_size(b)
-            return {'n': n, 'a': 'q%02da.png' % n, 'aw': aw, 'ah': ah, 'b': 'q%02db.png' % n, 'bw': bw, 'bh': bh}
-        if os.path.exists(one):
-            w, h = png_size(one); return {'n': n, 'strip': 'q%02d.png' % n, 'w': w, 'h': h}
+        for ext in ('png', 'svg'):
+            one = 'q%02d.%s' % (n, ext); a = 'q%02da.%s' % (n, ext); b = 'q%02db.%s' % (n, ext)
+            if os.path.exists(os.path.join(pdir, a)) and os.path.exists(os.path.join(pdir, b)):
+                (aw, ah), (bw, bh) = img_size(os.path.join(pdir, a)), img_size(os.path.join(pdir, b))
+                return {'n': n, 'a': a, 'aw': aw, 'ah': ah, 'b': b, 'bw': bw, 'bh': bh}
+            if os.path.exists(os.path.join(pdir, one)):
+                w, h = img_size(os.path.join(pdir, one)); return {'n': n, 'strip': one, 'w': w, 'h': h}
         return None
+    gen = os.path.join(ROOT, 'tools', 'gen', pid + '.json')
+    matgen = False
+    if 'key1' not in meta and os.path.exists(gen):
+        g = json.load(open(gen, encoding='utf-8'))
+        meta['key1'] = g['key']; matgen = True
+        for k, v in g['notes'].items(): meta.setdefault('note' + k, v)
     has_mat = 'key1' in meta and all(figs(i) for i in range(1, 41))
+    matgen = matgen and has_mat
+    if matgen:
+        meta['keynote'] = ('Q1-40 (Mental Ability): is site ke liye code se banaye gaye abhyas prashn hain, asli booklet ke nahi; har sawal ka uttar program ne jaancha hai. ' + meta.get('keynote', '')).strip()
     sections = []
     if has_mat:
         assert len(meta['key1']) == 40
@@ -84,13 +103,13 @@ def build(path):
     sections.append({'id': 'ar', 'name': 'SECTION – II', 'title': 'ARITHMETIC TEST', 'short': 'Arithmetic', 'dir': ARITH_DIR, 'qs': arith})
     sections.append({'id': 'la', 'name': 'SECTION – III', 'title': 'LANGUAGE TEST', 'short': 'Language', 'dir': LANG_DIR, 'passages': passages})
     paper = {'id': pid, 'title': meta['title'], 'date': meta['date'], 'booklet': meta['booklet'], 'code': meta['code'],
-             'full': has_mat, 'minutes': 120 if has_mat else 60, 'omit': omit, 'keynote': meta.get('keynote', ''),
+             'full': has_mat, 'matgen': matgen, 'minutes': 120 if has_mat else 60, 'omit': omit, 'keynote': meta.get('keynote', ''),
              'sections': sections, 'key': ''.join(key.get(i, '-') for i in range(1, 81)),
              'notes': {k[4:]: v for k, v in meta.items() if re.match(r'note\d+$', k)}}
     with open(os.path.join(pdir, 'paper.js'), 'w', encoding='utf-8') as f:
         f.write('JNV_LOAD(' + json.dumps(paper, ensure_ascii=False, separators=(',', ':')) + ');\n')
     return {'id': pid, 'title': meta['title'], 'date': meta['date'], 'booklet': meta['booklet'], 'code': meta['code'],
-            'full': has_mat, 'minutes': paper['minutes'], 'questions': (80 if has_mat else 40) - len(omit), 'omit': omit}
+            'full': has_mat, 'matgen': matgen, 'minutes': paper['minutes'], 'questions': (80 if has_mat else 40) - len(omit), 'omit': omit}
 
 if __name__ == '__main__':
     idx = [build(p) for p in sorted(glob.glob(os.path.join(SRC, '[0-9]*.txt')), reverse=True)]

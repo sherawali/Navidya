@@ -1,7 +1,7 @@
 /* JNVST mock tests – plain ES5, no dependencies, works from any static host (GitHub Pages) */
 (function () {
   'use strict';
-  var V = 2;
+  var V = 3;
   var $app = document.getElementById('app');
   var $toast = document.getElementById('toast');
   var INDEX = window.JNV_INDEX || [];
@@ -131,6 +131,7 @@
     var odd = pg.no % 2, code = p.booklet + ' – ' + p.code;
     var h = '<div class="runhead">' + (odd ? '<span></span><span class="pg">( ' + pg.no + ' )</span><span>' + esc(code) + '</span>' : '<span>' + esc(code) + '</span><span class="pg">( ' + pg.no + ' )</span><span></span>') + '</div>';
     if (pg.head) h += '<div class="sec-h">' + pg.sec.name + '<br>' + pg.sec.title + '</div>';
+    if (pg.head && pg.sec.id === 'mat' && p.matgen) h += '<p class="qnote" style="margin:0 0 10px">Is Section ke chitra is site ke liye banaye gaye <b>naye abhyas prashn</b> hain (pattern wahi, 10 Part × 4 sawal) — ye ' + esc(p.title) + ' ki asli booklet ke chitra nahi hain.</p>';
     if (pg.part) {
       h += '<div class="sec-h">' + pg.part.part + '</div><p class="dir"><b>Directions :</b> ' + fmt(pg.part.dir) + '</p>';
       if (pg.part.cap) { var f = pg.part.qs[0]; h += '<div class="cap"><span style="flex:' + (f.aw || 1) + ' 1 0%">' + pg.part.cap + '</span><span style="flex:' + (f.bw || 3) + ' 1 0%">Answer Figures</span></div>'; }
@@ -160,7 +161,7 @@
       var best = get('best:' + m.id, null), run = get('run:' + m.id, null);
       h += '<div class="card"><span class="code">' + esc(m.code) + '</span><h2>' + esc(m.title) + '</h2>' +
         '<div class="meta">Exam date: ' + esc(m.date) + '<br>Booklet: ' + esc(m.booklet) + ' · Code ' + esc(m.code) + '<br>' +
-        (m.full ? '<span class="badge">FULL PAPER</span><br>80 questions · 100 marks · 2 hours<br>Real figures + official answer key'
+        (m.full ? '<span class="badge">FULL PAPER</span><br>80 questions · 100 marks · 2 hours<br>' + (m.matgen ? 'Section II + III asli paper se · Section I isi pattern ke naye abhyas chitra' : 'Real figures + official answer key')
           : '<span class="badge part">SECTION II + III</span><br>' + m.questions + ' questions (Q41–80) · ' + marks(m.questions) + ' marks · 1 hour<br>Arithmetic + Language · Mental Ability figures abhi jode nahi gaye') + '</div>' +
         (best ? '<div class="best">Best score: <b>' + best.m + ' / ' + best.max + '</b></div>' : '') +
         '<a class="btn primary" href="#/p/' + m.id + (run ? '/exam' : '') + '">' + (run ? 'Resume test ▶' : 'Open booklet ▶') + '</a></div>';
@@ -191,6 +192,7 @@
       '<div class="cand"><label for="nm">Name of the Candidate :</label><input id="nm" type="text" maxlength="40" autocomplete="name" value="' + esc(name) + '" placeholder="Apna naam likhiye"></div>' +
       '<div class="cand"><label>Roll Number :</label><span class="box">' + roll + '</span></div>' +
       '<div class="tm"><span>Time : ' + (p.minutes === 120 ? '2 Hours' : '1 Hour') + '</span><span>Maximum Marks : ' + marks(n) + '</span></div>' +
+      (p.matgen ? '<p class="note ui"><b>Dhyan dein:</b> Section II (Arithmetic) aur Section III (Language) asli ' + esc(p.title) + ' paper ke sawal hain. <b>Section I (Mental Ability, Q1–40) us saal ke asli chitra nahi hain</b> — ye usi 10-Part pattern par is site ke liye banaye gaye naye abhyas prashn hain, taaki poora 80 sawal / 2 ghante ka mock diya ja sake.</p>' : '') +
       (p.full ? '' : '<p class="note ui"><b>Is paper me abhi Section II (Arithmetic) aur Section III (Language) hain — Q41 se Q80.</b> Section I (Mental Ability, Q1–40) ke figures abhi site par jode nahi gaye hain, isliye samay 1 ghanta aur poore ank ' + marks(n) + ' rakhe gaye hain.' + om + '</p>') +
       '<h3>GENERAL INSTRUCTIONS FOR CANDIDATES</h3><ol>' +
       '<li>This Test Booklet has <b>' + n + ' questions</b>' + (p.full ? ' in three Sections' : ' (Question Nos. 41 to 80)') + '. All questions are compulsory and carry equal marks (<b>1.25 marks</b> each).</li>' +
