@@ -1,9 +1,18 @@
 # Navidya – JNVST (Navodaya) Class 6 Bilingual Mock Tests (हिन्दी / English)
 
 Free **bilingual (Hindi default + live `हिन्दी / English` toggle)** mock tests for the Jawahar Navodaya Vidyalaya Selection Test (Class VI), built from **real previous-year papers** (see the table below for exactly which parts are real).
-Booklet-style pages, OMR answer sheet, countdown timer with a bell every 30 minutes, rough-work pad, instant section-wise result, and bilingual answer review with explanations.
+All 80 questions of a paper (every Section, Parts 1–10, Arithmetic, and the Language passages) are laid out in **one continuous scroll**, exactly like reading a booklet – no page turning. The OMR answer sheet is the navigator: tap it in the top bar on a phone (or use the sticky sidebar on a wide desktop) and tap any question number to jump straight to that question. The compact top bar always shows the active question, the countdown timer (bell every 30 minutes), `OMR x/80`, the `हिं/EN` toggle and Submit.
 
 Pure static site (HTML + CSS + ES5 JS, no build step, no server, no external libraries) – works on GitHub Pages and on any phone/tablet/desktop browser.
+
+## Mobile-first layout
+
+* **Phones (360–430 px and up to 768 px):** the booklet is full-width / edge-to-edge – no outer card margins, no shadows and only 8–10 px of side padding, so nearly the whole screen width is used for questions, options, passages and figures. The exam bar is a single ~46 px row (`Q#`, timer, `OMR x/80`, compact `हिं/EN`, Submit). Question/option rows are ≥44 px tall tap targets, options are one per line, and MAT figures (`q.strip`, `q.a` + `q.b`) are stacked at full width instead of being squeezed side by side.
+* **Tablets:** same single-column stream, the paper becomes a centred card.
+* **Desktop (≥1180 px):** readable centred column (max 900 px) plus a sticky OMR sidebar that follows the question you are reading.
+* **Answer Review** uses the same continuous stream, with `All / Wrong / Not attempted / Correct` filters and per-question notes, and prints cleanly (`@media print`, one Section per page) if you want it on paper.
+
+Your answers, timer, active question and scroll position are saved in `localStorage`, so a reload or an accidental exit resumes exactly where you left off. Switching between Hindi and English mid-test keeps the running timer, your answers, Strict OMR mode and the question you were reading.
 
 ## Go live on GitHub Pages
 
