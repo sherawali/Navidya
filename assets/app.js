@@ -17,6 +17,9 @@
   function fmt(s) {
     return esc(s)
       .replace(/\{([^{}\/]+)\/([^{}]+)\}/g, '<span class="fr"><span>$1</span><span>$2</span></span>')
+      .replace(/⦃/g, '{').replace(/⦄/g, '}')
+      .replace(/\^(\d+)/g, '<sup>$1</sup>')
+      .replace(/~([^~]+)~/g, '<span style="text-decoration:overline">$1</span>')
       .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
       .replace(/\*(.+?)\*/g, '<b><i>$1</i></b>')
       .replace(/_{3,}/g, '<span class="blank"></span>')
@@ -132,7 +135,7 @@
       h += '<div class="sec-h">' + pg.part.part + '</div><p class="dir"><b>Directions :</b> ' + fmt(pg.part.dir) + '</p>';
       if (pg.part.cap) { var f = pg.part.qs[0]; h += '<div class="cap"><span style="flex:' + (f.aw || 1) + ' 1 0%">' + pg.part.cap + '</span><span style="flex:' + (f.bw || 3) + ' 1 0%">Answer Figures</span></div>'; }
     } else if (pg.head) h += '<p class="dir"><b>Directions :</b> ' + fmt(pg.sec.dir) + '</p>';
-    function qs(list) { return list.map(function (q) { return renderQ(p, q, ansMap[q.n], keyed ? p.key.charAt(q.n - 1) : null); }).join(''); }
+    function qs(list) { return list.map(function (q) { var x = renderQ(p, q, ansMap[q.n], keyed ? p.key.charAt(q.n - 1) : null); if (keyed && p.notes && p.notes[q.n]) x = x.replace(/<\/div><\/div>$/, '<div class="qnote">ℹ ' + esc(p.notes[q.n]) + '</div></div></div>'); return x; }).join(''); }
     if (pg.passages) {
       h += '<div class="cols">';
       pg.passages.forEach(function (ps, i) {
@@ -158,7 +161,7 @@
       h += '<div class="card"><span class="code">' + esc(m.code) + '</span><h2>' + esc(m.title) + '</h2>' +
         '<div class="meta">Exam date: ' + esc(m.date) + '<br>Booklet: ' + esc(m.booklet) + ' · Code ' + esc(m.code) + '<br>' +
         (m.full ? '<span class="badge">FULL PAPER</span><br>80 questions · 100 marks · 2 hours<br>Real figures + official answer key'
-          : '<span class="badge part">SECTION II + III</span><br>40 questions (Q41–80) · 50 marks · 1 hour<br>Mental Ability figures abhi jode nahi gaye') + '</div>' +
+          : '<span class="badge part">SECTION II + III</span><br>' + m.questions + ' questions (Q41–80) · ' + marks(m.questions) + ' marks · 1 hour<br>Arithmetic + Language · Mental Ability figures abhi jode nahi gaye') + '</div>' +
         (best ? '<div class="best">Best score: <b>' + best.m + ' / ' + best.max + '</b></div>' : '') +
         '<a class="btn primary" href="#/p/' + m.id + (run ? '/exam' : '') + '">' + (run ? 'Resume test ▶' : 'Open booklet ▶') + '</a></div>';
     });
@@ -172,7 +175,8 @@
   /* ---------- COVER ---------- */
   function cover(p) {
     view = 'cover';
-    var n = p.full ? 80 : 40, name = get('name', ''), roll = get('roll', null);
+    var n = qList(p).length, name = get('name', ''), roll = get('roll', null);
+    var om = p.omit && p.omit.length ? ' Q' + p.omit.join(', Q') + ' (chitra/option uplabdh nahi) is mock me shamil nahi ' + (p.omit.length > 1 ? 'hain' : 'hai') + ' — kul ' + n + ' sawal.' : '';
     if (!roll) { roll = String(Math.floor(10000000 + Math.random() * 89999999)); set('roll', roll); }
     var secRows = '';
     p.sections.forEach(function (s) {
@@ -187,7 +191,7 @@
       '<div class="cand"><label for="nm">Name of the Candidate :</label><input id="nm" type="text" maxlength="40" autocomplete="name" value="' + esc(name) + '" placeholder="Apna naam likhiye"></div>' +
       '<div class="cand"><label>Roll Number :</label><span class="box">' + roll + '</span></div>' +
       '<div class="tm"><span>Time : ' + (p.minutes === 120 ? '2 Hours' : '1 Hour') + '</span><span>Maximum Marks : ' + marks(n) + '</span></div>' +
-      (p.full ? '' : '<p class="note ui"><b>Is paper me abhi Section II (Arithmetic) aur Section III (Language) hain — Q41 se Q80.</b> Section I (Mental Ability, Q1–40) ke figures abhi site par jode nahi gaye hain, isliye samay 1 ghanta aur poore ank ' + marks(n) + ' rakhe gaye hain.</p>') +
+      (p.full ? '' : '<p class="note ui"><b>Is paper me abhi Section II (Arithmetic) aur Section III (Language) hain — Q41 se Q80.</b> Section I (Mental Ability, Q1–40) ke figures abhi site par jode nahi gaye hain, isliye samay 1 ghanta aur poore ank ' + marks(n) + ' rakhe gaye hain.' + om + '</p>') +
       '<h3>GENERAL INSTRUCTIONS FOR CANDIDATES</h3><ol>' +
       '<li>This Test Booklet has <b>' + n + ' questions</b>' + (p.full ? ' in three Sections' : ' (Question Nos. 41 to 80)') + '. All questions are compulsory and carry equal marks (<b>1.25 marks</b> each).</li>' +
       '<li>Each question has four probable answers marked (A), (B), (C) and (D). Only <b>one</b> of them is correct. Darken the circle of the correct answer. Example – if the answer to Question No. 37 is (C): <b>37.</b><span class="omr-eg"><i>A</i><i>B</i><i class="f">C</i><i>D</i></span></li>' +

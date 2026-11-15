@@ -1,0 +1,56 @@
+@id 2025
+@title JNVST 2025
+@date 18 January 2025
+@booklet SS256J ENGL
+@code D
+@omit 53
+@key41 CBACACBBCCCBABDBBDBADBDBABADBDACACADDACB
+@keynote Q41-80: do coaching keys (Kranthi Keen aur Education Observer, Set D) aapas me kai jagah alag thi; isliye har sawal khud solve karke sahi uttar rakha gaya hai. Q53 ke options scan me saaf nahi the, isliye wo sawal is mock me shamil nahi hai.
+@note56 Asli paper me yahan chaar aayaton (rectangles) ka chitra tha; yahan unke maap text me likhe gaye hain. (b) 14 × 14 = 196 sabse bada.
+@note60 Asli paper me yahan bar graph tha; yahan uske aankde text me likhe gaye hain. (6 + 10) − (4 + 8) = 4.
+[ARITH]
+41. Prime factorisation of 90 is : | 9 × 10 | 3 × 6 × 5 | 2 × 3^2 × 5 | 2 × 3 × 15
+42. If 9432 ÷ 1.25 = 7545.6, then 9.432 ÷ 12.5 is equal to : | 7.5456 | 0.75456 | 75.456 | 754.56
+43. In a question of division, if divisor is 51, quotient is 16 and remainder is 27, then the dividend is : | 843 | 483 | 9 | 1393
+44. The sum of 1.1, 1.01, 1.001, 0.01, 11.01 and 111.1001 is : | 125.2312 | 126.2311 | 125.2311 | 125.2321
+45. Which of the following is always a factor of every prime number ? | 1 | 2 | 4 | 7
+46. Find the difference between the greatest and the smallest 4-digit numbers formed using all the digits 4, 2, 0 and 7. | 5000 | 5300 | 5373 | 5720
+47. 17 bottles of water, each of 300 mL and 30 bottles of juice, each of 130 mL are poured into a jug. The total liquid in the jug in litres is : | 8 | 9 | 10 | 11
+48. 3 + {3/100} + {3/1000} + {3/1000000} is equal to the decimal number : | 3.030333 | 3.033003 | 3.003303 | 3.0303003
+49. 8 − [18 − ⦃16 − (5 − ~4 − 1~)⦄] is equal to : | 2 | 3 | 4 | 5
+50. Suresh left his home at 9:00 a.m. to meet his uncle. He walked for 10 minutes, travelled in bus for 1 hour 05 minutes and then walked for 15 minutes to reach his uncle's home. He stayed there for 3 hours 20 minutes and reached his home at 3:30 p.m. How much time did he take on the return journey ? | 1 hour 30 minutes | 1 hour 35 minutes | 1 hour 40 minutes | 1 hour 45 minutes
+51. The simplest fraction form of 20.0925 is : | {803.7/400} | {8037/200} | {8037/400} | {8037/4000}
+52. A square park is of side 50 m. There is a path 2.5 m wide running all around inside it. The cost of levelling the path (in ₹) at ₹ 10 per square metre is : | 4,500 | 4,750 | 5,000 | 5,250
+53. OMITTED | - | - | - | -
+54. Teena purchased a scooter for ₹ 55,000. She spent ₹ 3,400 on its repair. She sold the scooter to her friend for ₹ 56,030. Her profit or loss is : | Profit of ₹ 2,370 | Loss of ₹ 2,370 | Profit of ₹ 1,030 | Loss of ₹ 1,030
+55. A shopkeeper buys at the rate of 5 toffees for a rupee and sells at the rate of 4 toffees for a rupee. The number of toffees sold, so as to earn a profit of ₹ 125 is : | 1,200 | 1,500 | 2,000 | 2,500
+56. Which of the following rectangles has maximum area and how much is the maximum area (in sq. cm) ?¶Rectangle (a) : 18 cm × 10 cm ; Rectangle (b) : 14 cm × 14 cm ; Rectangle (c) : 16 cm × 12 cm ; Rectangle (d) : 17 cm × 11 cm | Rectangle (c), 192 | Rectangle (b), 196 | Rectangle (d), 212 | Rectangle (a), 280
+57. {5/22} + {7/22} − {3/22} + {9/22} − {1/22}, on simplification, gives : | {15/22} | {17/22} | {19/22} | {13/22}
+58. The angle between the minute hand and the hour hand at 6:00 p.m. is : | Acute angle | Right angle | Obtuse angle | Straight angle
+59. A bicycle wheel has a total of 24 spokes. The angle between a pair of adjacent spokes is : | 10° | 15° | 24° | 30°
+60. The bar graph shows the number of questions solved by P, Q, R and S.¶Questions solved — P : 4, Q : 6, R : 10, S : 8¶From the above bar graph, find how many more questions Q and R together solved than P and S together did. | 4 | 2 | 16 | 12
+[LANG]
+#P Books are by far the most lasting products of human effort. Temples crumble into ruin, pictures and statues decay, but books survive. Books do not destroy the great thoughts which are as fresh today as when they first passed through the author's mind. These thoughts speak through the printed pages. The only effect of time has been to throw out of currency, inappropriate products. Nothing in literature which is not good can live for long. Good books have always helped man in various spheres of life. No wonder the world keeps its books with great care.
+61. Of all the products of human effort, books are the most ____ creation. | caring | inappropriate | time consuming | useful
+62. Good books have been able to stand the test of time because they contain ____. | the author's mind | great ideas | inappropriate products | printed matter
+63. Which of the following words is a synonym of the word 'inappropriate' ? | illness | unaware | suitable | incorrect
+64. The world keeps its books with care because they ____. | train us | help us in various fields | are timeless | celebrate human effort
+65. The word 'crumble', as used in the passage, means ____. | disintegrate | dismiss | displace | dissect
+#P A robot is a special machine. It moves and follows instructions that come from a computer. Because it is a machine, it does not make mistakes or get tired. It never complains.¶Robots are all around us. Some robots are used to make things. For example, robots can help make cars. Some robots are used to explore dangerous places like volcanoes. Some robots can help clean houses. Some robots can even recognize words. They can be used to help answer telephone calls. Some robots look like humans. Most robots just look like machines.
+66. The synonym of 'tired' is ____. | explore | exhausted | vacuum | dangerous
+67. Robots don't make mistakes because they ____. | are machines | follow instructions given by a computer | look like humans | don't look tired
+68. According to the passage, for which of the following tasks are robots not used ? | To clean houses | To answer telephone calls | For making cars | For teaching children
+69. Which of the following words is an antonym of the word 'dangerous' ? | explore | safe | tired | recognise
+70. Which of the following statements about robots is not true ? | Most robots look like machines. | Robots don't make mistakes. | Robots are very useful. | Most robots look like humans.
+#P All spiders spin webs. Webs help spiders do three things. They help spiders hold eggs, hide from danger and catch food.¶Most spiders are dark brown, grey or black in colour while the spider webs are light in colour, white and cloudy. When spiders hide in their webs, they are harder to see. Webs help spiders catch food. Spider webs are sticky. When a bug flies into the web, it gets stuck. It tries to get out, but it can't. It is trapped! Spiders can tell that the bug is trapped as they feel the web move.¶So without webs, spiders would not be able to live like they do. Webs, in fact are crucial for the survival of spiders.
+71. This passage is about the ____. | importance of spider's web | importance of bugs for the spiders | importance of laying eggs | nature of spiders
+72. What is not true about webs of spiders ? | They hold eggs. | They catch food. | They find water. | They hide from enemies.
+73. The synonym of the word 'trapped' is : | stuck | hidden | eaten | escape
+74. How can spiders tell when something is trapped in their web ? | They can hear it. | They can smell it. | They can feel it. | They can taste it.
+75. As used in the last sentence of the passage, the word 'survival' means ____. | being alive | hidden | caught | defence
+#P The golden eagle is easily recognizable by its mostly dark brown plumage and golden feathers. In adults, the females resemble the males, but are often larger.¶This majestic creature makes its home in the open country in the northern hemisphere. They build large nests in trees or on the walls of cliffs which gives them greater room to manoeuvre. The golden eagle is a master at soaring. With its large wingspan, it is a magnificent sight as it soars for long periods often aided by the rising mass of warm air. Upwind is important, for it can carry the golden eagle to massive heights without flapping.
+76. The golden eagle is mostly found in ____. | areas that have little wind and warm air | areas that have buildings | the southern hemisphere | the northern hemisphere
+77. The female golden eagle can be distinguished by its ____. | darker plumage | brighter wings | dark brown plumage | larger size
+78. Which places would the bird look for building nests ? | Open country | Areas isolated from vegetation | Massive heights | Open country with houses
+79. Which word is similar in meaning to the word 'majestic' ? | golden | humble | grand | modest
+80. Which of the following words is not an antonym of 'massive' ? | tiny | vast | puny | weightless

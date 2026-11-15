@@ -5,6 +5,8 @@
 @code W
 @key41 CCBDCCABCBBBCCCBDBDCBBBCDCCCBACBCABCABAC
 @keynote Q41-80: coaching key (Kranthi Keen, Set W), har answer dobara solve karke check kiya gaya. Q54 me coaching key (B) galat thi, sahi uttar 60% (C) rakha gaya hai.
+@note54 Maan lo marked price ₹ 100: kharid ₹ 75, bikri ₹ 120 ⇒ laabh 45 ÷ 75 = 60% (C). Coaching key me (B) 45 chhapa hai, jo galat hai.
+@note55 349 × 51 + 632 ÷ 31 = 17799 + 20.4 ≈ 17819; sabse nazdeek option 17821 (C).
 [ARITH]
 41. Two lakh, two thousand, in digits, is written as : | 20,200 | 2,00,200 | 2,02,000 | 22,000
 42. The difference between the smallest 6-digit number and the greatest 4-digit number is : | 1 | 90000 | 90001 | 900001

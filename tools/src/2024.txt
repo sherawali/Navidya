@@ -3,11 +3,12 @@
 @date 20 January 2024
 @booklet VS246J ENGL
 @code J
+@omit 41 42
 @key41 AACDADBBBDDCCDADACCBACADCABADCDBCDABACCC
-@keynote Q41-80: coaching key (Kranthi Keen, Set J), har answer dobara solve karke check kiya gaya — sab match.
+@keynote Q41-80: coaching key (Kranthi Keen, Set J), har answer dobara solve karke check kiya gaya — sab match. Q41 (bar chart) aur Q42 (angle figure) chitra par aadharit hain aur chitra uplabdh nahi tha, isliye ye do sawal is mock me shamil nahi hain.
 [ARITH]
-41. The given bar chart shows the number of matches played by cricket teams of different countries in a year. How many more matches were played by Australia than Pakistan ? [[TODO]] | ? | ? | ? | ?
-42. TODO angles figure | 20°, 40°, 80°, 120° | 30°, 30°, 70°, 130° | 40°, 30°, 120°, 70° | 50°, 20°, 80°, 110°
+41. OMITTED | - | - | - | -
+42. OMITTED | - | - | - | -
 43. 30009 is same as : | 30 ten thousands and 9 tens | 30 thousands and 9 hundreds | 3 ten thousands and 9 ones | 3 ten thousands and 9 tens
 44. If the sum of two angles is an obtuse angle, then which of the following is not possible ? | one right angle and one acute angle. | one obtuse angle and one acute angle. | two acute angles. | two right angles.
 45. Sumit weighs 107 kg and Sanjay weighs 82 kg. The difference of their weight if the weight of each is rounded off to the nearest tens is : | 30 kg | 100 kg | 40 kg | 20 kg

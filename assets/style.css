@@ -84,6 +84,8 @@ img{max-width:100%;height:auto}
 .review .opts li{cursor:default}
 .review .opts li.right{background:#dff3e2;outline:1.5px solid #1b7a34}
 .review .opts li.wrong{background:#fde0e0;outline:1.5px solid #c62020}
+.qnote{font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff8d6;border-left:4px solid #b89b00;padding:6px 8px;margin-top:6px}
+sup{font-size:.7em;line-height:0}
 .v-ok{color:#1b7a34}.v-bad{color:#c62020}.v-skip{color:#7a5a00}
 
 /* ---------- cover ---------- */

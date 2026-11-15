@@ -76,19 +76,21 @@ def build(path):
             q['img'] = m.group(1); q['w'] = w; q['h'] = h
             q['q'] = re.sub(r'\s*\[\[img:[^\]]+\]\]', '', q['q'])
         return q
-    arith = [fix_imgs(q) for q in arith]
+    omit = [int(x) for x in meta.get('omit', '').split()]
     assert [q['n'] for q in arith] == list(range(41, 61)), pid
+    arith = [fix_imgs(q) for q in arith if q['n'] not in omit]
     lq = [q['n'] for p in passages for q in p['qs']]
     assert lq == list(range(61, 81)), pid
     sections.append({'id': 'ar', 'name': 'SECTION – II', 'title': 'ARITHMETIC TEST', 'short': 'Arithmetic', 'dir': ARITH_DIR, 'qs': arith})
     sections.append({'id': 'la', 'name': 'SECTION – III', 'title': 'LANGUAGE TEST', 'short': 'Language', 'dir': LANG_DIR, 'passages': passages})
     paper = {'id': pid, 'title': meta['title'], 'date': meta['date'], 'booklet': meta['booklet'], 'code': meta['code'],
-             'full': has_mat, 'minutes': 120 if has_mat else 60, 'keynote': meta.get('keynote', ''),
-             'sections': sections, 'key': ''.join(key.get(i, '-') for i in range(1, 81))}
+             'full': has_mat, 'minutes': 120 if has_mat else 60, 'omit': omit, 'keynote': meta.get('keynote', ''),
+             'sections': sections, 'key': ''.join(key.get(i, '-') for i in range(1, 81)),
+             'notes': {k[4:]: v for k, v in meta.items() if re.match(r'note\d+$', k)}}
     with open(os.path.join(pdir, 'paper.js'), 'w', encoding='utf-8') as f:
         f.write('JNV_LOAD(' + json.dumps(paper, ensure_ascii=False, separators=(',', ':')) + ');\n')
     return {'id': pid, 'title': meta['title'], 'date': meta['date'], 'booklet': meta['booklet'], 'code': meta['code'],
-            'full': has_mat, 'minutes': paper['minutes'], 'questions': 80 if has_mat else 40}
+            'full': has_mat, 'minutes': paper['minutes'], 'questions': (80 if has_mat else 40) - len(omit), 'omit': omit}
 
 if __name__ == '__main__':
     idx = [build(p) for p in sorted(glob.glob(os.path.join(SRC, '[0-9]*.txt')), reverse=True)]
