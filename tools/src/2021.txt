@@ -1,0 +1,53 @@
+@id 2021
+@title JNVST 2021
+@date 11 August 2021
+@booklet APST21 ENGL
+@code W
+@key41 CCBDCCABCBBBCCCBDBDCBBBCDCCCBACBCABCABAC
+@keynote Q41-80: coaching key (Kranthi Keen, Set W), har answer dobara solve karke check kiya gaya. Q54 me coaching key (B) galat thi, sahi uttar 60% (C) rakha gaya hai.
+[ARITH]
+41. Two lakh, two thousand, in digits, is written as : | 20,200 | 2,00,200 | 2,02,000 | 22,000
+42. The difference between the smallest 6-digit number and the greatest 4-digit number is : | 1 | 90000 | 90001 | 900001
+43. The simplification of 3(13 + 6 × 7) ÷ (11 × 3) − (12 − 4 × 2) gives : | 0 | 1 | 2 | 9
+44. What is the sum of the first four prime numbers ? | 10 | 11 | 26 | 17
+45. The decimal equivalent of 12{1/16} is : | 12.625 | 12.6025 | 12.0625 | 12.0525
+46. Which number is a multiple of all the three numbers 4, 8 and 6 ? | 396 | 664 | 696 | 5432
+47. What is the largest number which divides 270 and 426, leaving remainder 6 in each case ? | 12 | 22 | 30 | 36
+48. The sum of 7.7, 7.07, 7.007 and 77.0077 is : | 98.7807 | 98.7847 | 98.7877 | 98.7777
+49. On simplification, the approximate value of 3.003 × 15 + 0.0123 + 5.002575 is : | 48 | 49 | 50 | 51
+50. A train started from Delhi at 8 : 15 a.m. and reached Ajmer at 2 : 30 p.m. The time taken by the train to reach Ajmer from Delhi is : | 10 hours 45 minutes | 6 hours 15 minutes | 6 hours 30 minutes | 6 hours
+51. A match lasts for half an hour. {1/10} of the match time is taken up for time-out. For how many minutes does the time-out last ? | 5 minutes | 3 minutes | 6 minutes | 4 minutes
+52. If {x/25} = {196/x}, then x equals : | 56 | 70 | 84 | 42
+53. An article is purchased for ₹ 7,500 and sold for ₹ 8,400. The profit percent is : | 8% | 10% | 12% | 10{5/7}%
+54. 'A' buys a radio at {3/4}th of its marked price and sells it at 20% more than the marked price. What is A's gain percent ? | 30 | 45 | 60 | 75
+55. Find the approximate value of the following expression (in whole number). 349 × 51 + (632 ÷ 31) | 17522 | 17520 | 17821 | 17521
+56. A sum of money will double itself in 16 years at simple interest with a yearly rate of : | 10% | 6{1/4}% | 8% | 16%
+57. If two perpendicular sides of a right-angled triangle are 5 cm and 12 cm, its perimeter is : | 13 cm | 17 cm | 27 cm | 30 cm
+58. Given that 154 × 18 = 2772, then what is 27.72 ÷ 1.8 ? | 1.54 | 15.4 | 154 | 1540
+59. A cricketer has an average of 28 runs in 24 innings. How many runs must he score in the 25th inning to make his average 29 ? | 1 | 24 | 35 | 53
+60. In a school, {3/5} of the children are boys and the number of girls is 800. The number of boys is : | 800 | 1000 | 1200 | 2000
+[LANG]
+#P Deepak was excited. He was going on a picnic on Sunday with his uncle and cousins Preeti and Ria. He packed his backpack with his swimming kit, snacks and playthings. They started at 6 a.m. in the morning. It was a long drive and they reached the picnic spot at 9 a.m. It was a farmhouse in a village. They walked around the village to see the paddy fields and learnt how the rice is grown. They climbed trees and plucked mangoes and guavas. In the afternoon they sat under a tree and had lunch. When uncle said it was time to return home they wanted to stay longer because they liked the village so much.
+61. The word 'excited' means ____. | confident | very happy | busy | depressed
+62. Deepak and his cousins ____. | felt bored in the village | enjoyed the picnic | wanted to return home | could not climb trees
+63. Deepak went on a picnic with his ____. | parents | uncle and cousins | friends | sister
+64. The picnic spot was in a ____. | park | beach | village | swimming pool
+65. Uncle showed Deepak how ____. | we eat | to swim | to drive | rice is grown
+#P Have you played the Tug of War game? It is an interesting game. To play Tug of War you need some open space, a long and strong rope and two teams of players. The game will be interesting only if both the teams are equally strong. A line is drawn between the two teams. The team which gets pulled and is made to cross the line in the middle loses the game.¶The strongest member of the team should hold the end of the rope and the team should pull in a united manner. The play area should be cleaned of stones. Otherwise, it could cause injuries.
+66. Tug of War is ____. | a war | a rope | a game | a fight
+67. In 'Tug of War' we do ____. | boxing | hiding | rope pulling | batting and bowling
+68. The end of the rope is held by the ____ member of the team. | tallest | shortest | strongest | youngest
+69. The team which is pulled across the line in the middle is ____. | the winner | the loser | successful | given another chance
+70. The word 'united' means : | together | fight | pull | winning
+#P There are only two simple rules to follow to lose weight or to maintain a healthy weight. They are to eat a balanced diet with less fat and sugar and to exercise more. You don't have to starve to lose weight. If you eat less sugar, cakes, biscuits and eat more fruits and vegetables and drink plenty of water, you will lose weight and be healthier. Go for a walk or cycling everyday. Be more active instead of watching television or playing video games.
+71. How can we remain healthy ? | By eating biscuits only | By doing exercise only | By eating a balanced diet and doing exercise | By eating more fruits
+72. What do we have to eat more to lose weight ? | Sugar and cakes | Fruits and vegetables | Biscuits and sugar | Biscuits and fruits
+73. What do we have to drink in plenty to remain healthier ? | Colas | Fruit juice | Water | Vegetable juice
+74. Which is a good exercise for all ? | Walking and cycling | Kite flying | Playing video games | Watching television
+75. Which word is opposite in meaning to the word, 'active' ? | dull | inactive | interested | energetic
+#P Autumn is the season that falls between summer and winter. There are many changes that begin in this beautiful season. Days become shorter. Leaves of trees turn from green to lively red, yellow and orange. In fact trees need sunlight to keep their leaves green. Without sunlight leaves turn pale. The grass is no longer blanketed with dew but with frost, almost every morning, as temperatures reach the freezing point. Animals start storing up a food supply to last through the long winter months. These changes occur as we adjust from the heat of the summer to the chill of the winter.
+76. Autumn occurs between summer and ____. | January | Spring | Winter | Solstice
+77. Which of the following changes may occur during autumn ? | Days become shorter. | It becomes very hot. | Days become longer. | There is more sunlight.
+78. Leaves turn pale during autumn because they : | don't get enough oxygen. | don't get enough light. | don't get enough water. | store too much oxygen.
+79. What do animals begin to do to prepare for the end of autumn ? | Store food | Eat less | Shed fur | Turn colours
+80. Another word for 'blanketed' is : | grass | woollen | covered with | grew up

@@ -1,0 +1,53 @@
+@id 2022
+@title JNVST 2022
+@date 30 April 2022
+@booklet AP ENGL
+@code G
+@key41 ACCCBDADBBBCCBABCBABCADBABCDACCABACBBCAC
+@keynote Q41-80: coaching key (Kranthi Keen, Set G), har answer dobara solve karke check kiya gaya — sab match.
+[ARITH]
+41. A decrease of 20% on the price of a cycle, increases its demand by 20%. The effect on the sale of shop is : | 4% decrease | 4% increase | 10% decrease | 10% increase
+42. The decimal equivalent of 12{1/16} is : | 12.625 | 12.6025 | 12.0625 | 12.0525
+43. The value of (20 ÷ 5) ÷ 2 + (16 ÷ 8) × 2 + (10 ÷ 5) × (3 + 2) is : | 12 | 15 | 16 | 18
+44. In how many years will ₹ 1500 amount to ₹ 1800 at 8% per annum simple interest ? | 1{1/2} years | 2 years | 2{1/2} years | 3 years
+45. A cube of lead with edge 6 cm each is melted to form 27 equal cubes. The length of the edge of each small cube is : | 1.5 cm | 2.0 cm | 3.0 cm | 4.0 cm
+46. The LCM of 25, 45 and 75 is : | 450 | 125 | 175 | 225
+47. If a room 15 m long requires 7500 tiles, each 15 cm × 12 cm to cover the entire floor, then the breadth of the room is : | 9 m | 10 m | 12 m | 10.5 m
+48. The sum of the digits of a number is subtracted from the number. The resulting number is always divisible by : | 2 | 5 | 8 | 9
+49. What is the sum of 6.6, 6.06, 6.006 and 66.6006 ? | 74.2666 | 85.2666 | 84.0606 | 84.0666
+50. Writing 0.0725 in simplest fraction form gives the result : | {29/4000} | {29/400} | {29/40} | {129/400}
+51. The number of two digit natural numbers is : | 89 | 90 | 91 | 99
+52. The prime factorisation of 2100 is : | 2 × 2 × 7 × 15 × 5 | 2 × 2 × 3 × 5 × 35 | 2 × 2 × 3 × 5 × 5 × 7 | 4 × 3 × 5 × 5 × 7
+53. Simplification of {1/13} [7 + 2 × 5 × 11 + 2 × 13] equals : | 13 | 9 | 11 | 12
+54. A sum of ₹ 600 amounts to ₹ 720 in 4 years at simple interest. What will it become in four years if the rate of interest is increased by 2% ? | ₹ 648 | ₹ 768 | ₹ 668 | ₹ 968
+55. A piece of wire 2{3/4} m long broke into two pieces. One piece is {5/8} m longer than the other. The length of the longer wire is : | 1{11/16} m | 1{1/16} m | 2 m | {3/4} m
+56. If the HCF of 72 and 180 is 36, then their LCM is : | 180 | 360 | 540 | 720
+57. The smallest 4-digit number when expressed as a product of primes is : | 5 × 5 × 5 × 8 | 5 × 5 × 5 × 4 × 2 | 5 × 5 × 5 × 2 × 2 × 2 | 10 × 10 × 10
+58. A train starts at 2 : 15 p.m. from a station at a speed of 72 km/hr. At what time will it reach the other station 90 km away ? | 3 : 00 p.m. | 3 : 30 p.m. | 4 : 00 p.m. | 4 : 30 p.m.
+59. The simplification of the following gives the result : 2{1/17} ÷ {7/10} × 1{1/33} | 3{1/33} | 2{1/33} | 4{1/22} | {100/17}
+60. The difference between the length and breadth of a hall is 23 m (length > breadth). If the perimeter of the floor of the hall is 206 m, then area of the floor of hall (in sq.m.) is : | 2420 | 2520 | 2640 | 2760
+[LANG]
+#P Snakes belong to a class of animals called reptiles. This group also includes crocodiles, lizards and turtles. Snakes are found almost everywhere, in forests, desert and lakes. They cannot survive in places where the ground is frozen all through the year. The snake has very poor eyesight. It uses its other senses to escape damage and find food. Some snakes smell with their noses but most of them smell with their tongue. The body of a snake is covered with scales made up of layers of cells. A few times every year a snake sheds the outer layer of dead skin. The cells underneath at once form the outer layer which is a protective covering for the snake.
+61. Snakes are called ____. | lizards. | scales. | reptiles. | turtles.
+62. Snakes cannot survive in ____. | frozen places. | deserts. | forests. | lakes.
+63. Snakes have poor ____. | sense of smell | hearing | sense of touch | eyesight
+64. ____ protect/protects the snake from injury. | Tongue | Scales | Dead skin | Nose
+65. The word 'survive' means : | live. | move. | escape. | belong.
+#P Milk is the best food. It has water, sugar, fat, vitamins and proteins. People drink milk from different animals. In England and many other cold countries there are cows. In hot dry countries/places like Arabia and the middle of Asia there are camels. In India there are cows as well as buffaloes. At many places there are goats. If people keep cows or other animals they get a lot of milk. From milk they can make butter and cheese. It is essential that the milk we use should be pure and germ-free. Impure milk does more harm than good to the human body.
+66. People drink milk from ____ animals. | same | different | like | alike
+67. In ____ countries/places there are camels. | cool | frozen | warm | cold
+68. If people keep animals like cows, they get ____ of milk. | little | less | small | plenty
+69. It is ____ that the milk we use should be pure. | necessary | inessential | unneeded | needless
+70. 'Harm' means the same as ____. | benefit | repair | damage | fixed
+#P It was a Sunday. Harish was playing in the park with his friends. There was a pond nearby. Harish wanted to swim. He jumped into the pond with a splash. At the other end of the pond there were a few ducks in the water. Harish swam happily enjoying the mild sun and the cold water. Suddenly he heard a loud noise and the water splashed. He looked all around to see if someone had dived into the pond. He could see no one.
+71. Harish was playing in the park with his ____. | brothers | classfellows | friends | team
+72. Harish jumped into the pond ____. | to swim. | to catch fish. | to chase the ducks. | to have a bath.
+73. The weather was ____. | very hot. | just warm. | very cold. | cool with rain.
+74. Who else was there in the pond ? | a few ducks | two boys | Harish's friends | fishermen
+75. The word 'dived' means the same as ____. | slipped | fell | jumped | climbed
+#P Once we visited a village where many families were selling clay products made by them. What attracted us most were artificial fruits and vegetables made by a certain family. We saw apples, oranges and tomatoes of such fine shapes and colours that we could hardly distinguish them from the real ones. They received much praise from all and sundry.
+76. A certain family made ____ of clay. | tables and chairs | fruits and vegetables | toys and pots | piggy bank and balls
+77. We could hardly distinguish the ____ fruits from the real ones. | natural | artificial | original | actual
+78. The word 'such' is a/an ____. | verb | adverb | adjective | conjunction
+79. ____ is the synonym of 'differentiate'. | Distinguish | Mix-up | Confuse | Mistake
+80. ____ means the same as 'all and sundry'. | Specific | Exact | Everyone | Few
