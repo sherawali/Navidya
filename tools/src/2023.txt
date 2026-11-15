@@ -1,0 +1,55 @@
+@id 2023
+@title JNVST 2023
+@date 29 April 2023
+@booklet NJ623 ENGL
+@code J
+@key41 BACBBCBDDBBCADBDDDDBACCDCACBDACDBBCABDBC
+@keynote Q41-80: coaching keys (Kranthi Keen / Education Observer, Set J), har answer dobara solve karke check kiya gaya. Q46 me dono coaching keys (D) dete hain, par ganit se uttar 750 m (C) aata hai — yahan (C) rakha gaya hai. Q59 ka sawal hi gadbad hai (neeche note dekhein).
+@note46 Speed = 1 km / 2 min = 500 m/min. 4 min me 2000 m = 1250 m + doosri train ⇒ 750 m (C). Coaching keys me (D) chhapa hai.
+@note59 Is sawal ke data se exact uttar nahi banta (64 ladke 70% tab honge jab kul 91.4 bachche hon ⇒ 11.4 ladkiyan). Coaching keys (D) 8 dete hain; ganit ke hisaab se sabse nazdeek 12 (C) hai. Yahan chhapi hui key (D) rakhi gayi hai.
+[ARITH]
+41. Which of the following numbers is divisible by 3, 4, 5 and 6 ? | 36 | 60 | 80 | 90
+42. 360 g is what percent of 3 kg ? | 12% | 15% | 18% | 21%
+43. My watch shows 7:05 a.m. It is 25 minutes fast. The correct time is : | 7:30 a.m. | 7:50 a.m. | 6:40 a.m. | 5:40 a.m.
+44. The length, width and height of a water tank are 11 m, 10 m and 9 m respectively. The tank is filled with water upto 6 m height. The empty portion of the water tank is : | {1/4} | {1/3} | {1/6} | {2/3}
+45. The difference between the cost price and selling price of a commodity is ₹ 240. If the profit is 20%, then the selling price is : | ₹ 1200 | ₹ 1440 | ₹ 1800 | ₹ 2440
+46. A 1250 m long train covers a distance of 1 km in 2 minutes. It crosses another stationary train in 4 minutes. The length of stationary train is : | 1250 m | 500 m | 750 m | 1000 m
+47. How many rectangular tiles of dimensions 10 cm × 8 cm are required to cover the floor of a hall having dimensions 12 m × 10 m ? | 12,000 | 15,000 | 10,000 | 18,000
+48. On simplification of 10 × 10 + [400 ÷ ⦃100 − (50 − ~3 × 10~)⦄], we get : | 265 | 65 | 310 | 105
+49. A number with 4 or more digits is divisible by 8 if the : | number is even | last digit is divisible by 8 | last two digits are divisible by 8 | last three digits are divisible by 8
+50. A dealer gets ₹ 56 less if instead of selling a chair at a gain of 15% he sells it at a gain of 8%. The cost price of the chair is : | ₹ 700 | ₹ 800 | ₹ 900 | ₹ 950
+51. On dividing 4.239 by 0.9 we get : | 0.471 | 4.71 | 47.1 | 471
+52. 5 cm is expressed in kilometers as : | 0.005 km | 0.0005 km | 0.00005 km | 0.000005 km
+53. The sum of two numbers is 8 and their product is 15. What is the sum of their reciprocals ? | {8/15} | {15/8} | 23 | 7
+54. Five thousand five hundred fifty-five is written as : | 5055 | 5505 | 5550 | 5555
+55. If 15 is the sum of three consecutive numbers, then the square of the middle number is : | 16 | 25 | 36 | 49
+56. The difference between the greatest and smallest 4-digit number using all the digits 9, 7, 0 and 4 is : | 8991 | 5391 | 9261 | 5661
+57. The HCF of 2^2 × 3^3 × 5^5 ; 2^3 × 3^2 × 5^2 × 7 and 2^4 × 3^4 × 5 × 7^2 × 13 is : | 2^2 × 3^2 × 5 × 7 × 13 | 2^4 × 3^4 × 5^5 | 2^4 × 3^4 × 5^2 × 7 × 11 | 2^2 × 3^2 × 5
+58. A 1 km long goods train is running at a speed of 45 km/h. The time taken by this goods train to pass through a 2 km long tunnel is : | 1 minute | 2 minutes | 3 minutes | 4 minutes
+59. A group of 80 students went on a picnic. 20% of the students are girls and rest are boys. How many girls should be added to make the boys as 70% ? | 16 | 24 | 12 | 8
+60. Rahim got 10 marks more than Dinesh. George got 25 marks less than Rahim. The total marks of all the three is 235. The marks of George are : | 80 | 65 | 90 | 75
+[LANG]
+#P We cannot judge a person merely through his outward appearance. Appearances are often deceptive. It is difficult to know one's virtues or qualities at a glance. Sometimes we are drawn towards a person by his outward appearance. But later we realise that we judged him wrong. Many things appear attractive superficially. But very often things are not what they seem to be. We should find out the true nature of a person or a thing.
+61. Outward appearances are often ____. | deceptive | strong | clear | true
+62. What is difficult to know at a glance ? | One's name | One's address | One's virtues | One's ambition
+63. Mostly we are attracted towards a person by his/her ____. | inner show | attractive personality | outward appearance | mental power
+64. 'Attractive' is not the synonym of ____. | beautiful | pretty | lovely | ugly
+65. 'Deceptive' is a/an ____. | Adverb | Verb | Adjective | Noun
+#P A volcano is a burning mountain with a great hole running deep into the earth. The mouth of the opening is called the 'crater' of the volcano. Sometimes a volcano may remain quiet for centuries and then suddenly become active. This is called a 'volcanic eruption', and great clouds of ash, dust, gas and steam rise from the crater accompanied by a loud noise. After sometime hot molten rock, called lava, begins to flow down the mountain. This may continue for many days or weeks. Then the volcano will 'go to sleep' again, or remain 'dormant' for many years. Most volcanoes are found near the sea, leading to formation of islands.
+66. What is not true about a volcano ? | It is like big forest fires. | It gives out ash, dust and lava. | It is found mostly near the sea. | It creates a great hole deep into the earth.
+67. When a volcano erupts it is said to be ____. | dormant | sleeping | active | quiet
+68. The lava that flows down the mountain is in ____ state. | solid | liquid | vapour | gaseous
+69. The antonym of 'quiet' here is ____. | calm | serene | still | active
+70. 'Accompanied' as used in the passage, means ____. | alongwith | followed by | happened | continued
+#P Sometimes we get bored doing the same kind of job. It reduces our efficiency, so we should have some entertainment to refresh ourselves. Then we can resume our work with the same efficiency and enthusiasm. Tension or worries are the enemies of our health. Laughter is the best medicine to get rid of unwanted tension or worries. We can also visit parks, museums, sanctuaries, etc. to remove our tension. Physical exercise is also as important as playing games.
+71. We get bored doing the ____ kind of job. | different | separate | similar | apart
+72. After some entertainment we can ____ our work. | end | finish | close | resume
+73. Laughter helps us in getting rid of ____. | hereditary diseases only | unwanted tension | unforeseeable problems only | viral diseases
+74. 'Resume' means the same as ____. | take back | start again | finish | discontinue
+75. 'Efficiency' is the antonym of ____. | edge | effectiveness | inefficiency | effusiveness
+#P Lal Bahadur Shastri was the second Prime Minister of India. He is said to be one of the best leaders India has ever produced. But only a few people know about his early life. He battled against all odds in his life to complete his studies. After completing his studies he did not opt for any job. He was eager to join the freedom movement. Soon he became a mass leader. He became the Prime Minister of India in 1964. He was a laborious person and worked at least eighteen hours a day.
+76. Lal Bahadur Shastri was the ____ Prime Minister of India. | second | first | third | fourth
+77. He battled ____ all odds in his life. | for | against | in | into
+78. He became a ____ leader. | one man | few men | mob | mass
+79. 'Became' is the ____ tense of the verb. | present | past | future | indefinite
+80. 'Complete' is the synonym of ____. | begin | commence | finish | open

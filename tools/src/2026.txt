@@ -1,0 +1,54 @@
+@id 2026
+@title JNVST 2026
+@date 13 December 2025
+@booklet IB266D ENGL
+@code E
+@key1 DCADCCBBDBCDCDBDAACCBBABABBBBDCBACBBBABA
+@key41 BCACCBBCCABBACCBDDACBCABBBAAABABAABCBBCD
+@keynote Official NVS key "JNVST-2026(SB) KEY, EXAM 13-12-2025". Q41-80 dobara solve karke bhi check kiye gaye — sab match.
+[ARITH]
+41. How many prime numbers are there between 1 and 11 ? | 5 | 4 | 6 | 3
+42. The product of 999 and 9999 is : | 999999 | 999001 | 9989001 | 899991
+43. The product of 0·2 and 0·03 is : | 0·006 | 0·06 | 0·6 | 6
+44. The sum of all factors of 64 is : | 125 | 126 | 127 | 128
+45. The greatest common factor of 20 and 30 is : | 5 | 8 | 10 | 25
+46. The following, on simplification, gives 6·082 + 60·82 + 608·2 − 0·6082 : | 674·102 | 674·4938 | 675·1022 | 675·5916
+47. 0·1 × 0·1 × 0·1 is equal to : | 0·1 | 0·001 | 0·01 | 1·000
+48. {3/2} ÷ {3/2} × 2 + {3/2} is equal to : | 2 | 6 | {7/2} | {2/7}
+49. {999/1000} in decimal form is : | 0·0999 | 9·99 | 0·999 | 0·00999
+50. 0·238 is equal to the fraction : | {119/500} | {238/25} | {119/25} | {119/50}
+51. 100 cm² converted to m² (metre square) is : | 0·1 m² | 0·01 m² | 1 m² | 10 m²
+52. A train left Delhi for Jaipur at 10 : 45 a.m. and reached Jaipur at 3 : 30 p.m. The time of the journey is : | 7 hours 15 minutes | 4 hours 45 minutes | 4 hours 30 minutes | 2 hours 15 minutes
+53. The missing number in the given expression 58394 − 86 − 86 = ____ × 86 is : | 677 | 678 | 680 | 681
+54. There were 500 eggs in a box. {3/25} of them broke and {1/5} of the total are to be kept for the guests. The number of eggs which can be used is : | 60 | 100 | 340 | 440
+55. A shopkeeper bought a wall clock for ₹ 200 and sold it at a profit of ₹ 40. The selling price of the wall clock is : | ₹ 220 | ₹ 230 | ₹ 240 | ₹ 250
+56. A fruit seller bought apples for ₹ 1,500 and spent ₹ 100 in bringing the apples to his shop. He sold these apples for a total of ₹ 2,236. How much profit did he earn ? | ₹ 630 | ₹ 636 | ₹ 640 | ₹ 642
+57. The length of the 5th side of a pentagon, with perimeter 80 cm and the sum of lengths of whose four sides is 63 cm, is : | 12 cm | 13 cm | 15 cm | 17 cm
+58. A complete angle is equal to : | 1 right angle | 2 right angles | 3 right angles | 4 right angles
+59. The sum of all interior angles of a rectangle is equal to : | 360° | 90° | 270° | 180°
+60. In a survey of 115 families, the number of children in each family was recorded and the data has been represented by the bar graph. From the bar graph, the number of families having no child is : [[img:q60.png]] | 10 | 20 | 25 | 40
+[LANG]
+#P Flowers are useful to us in many ways. Flowers come in different colours and shapes. They are a symbol of beauty. Flowers are used in religious worship. Bouquets of flowers are given to show love and appreciation. Flowers are strung as garlands and used to adorn deities and honour celebrities. Flowers are arranged in vases to add beauty to our living environment.¶Flowers have practical uses too. They are used to make perfumes, tea and cosmetic products. Certain flowers are used as medicines. In short, flowers are important because they have a positive impact on the body and the mind.
+61. Flowers are ____ to us in many ways. | given | useful | sold | harmful
+62. Flowers are found in ____. | different shapes | many colours | different colours and shapes | a uniform size
+63. The practical uses of flowers are : | making tea, perfumes and cosmetic products | arranging in vases | making garlands | praying and worshipping
+64. ____ flowers are used to make medicines. | All | Some | Colourful | Small
+65. The word 'impact' means : | force | effect | act | hit
+#P Sonam was staring at the new cycle on display at the shop. She was amazed to see the new shiny red cycle. Her father noticed it and said to her, 'Come along, we need to get going.' Sonam had a last look at the cycle and followed her father. She went to bed thinking about the shiny, red cycle. The next day she kept talking about the cycle to her friends in school. When she returned home, she noticed a new cycle parked near the gate. She screamed in joy calling out to her mother. Her parents came out smiling and told her that it was her birthday gift and gave her the cycle. Sonam was delighted and hugged her parents happily.
+66. Sonam went with her ____ to a shop. | uncle | father | brother | friends
+67. Sonam was attracted by the shiny ____ cycle in the shop. | red | green | yellow | black
+68. Sonam's parents presented her the new red cycle : | as her birthday gift. | for her success in the exams. | because she liked it. | because she did not have a cycle.
+69. Sonam showed her happiness by : | hugging her parents. | thanking her parents. | running around the cycle. | jumping with joy.
+70. The word 'amazed' means the same as : | remembered | surprised | shocked | afraid
+#P Caged behind thick glass, the most famous dancer in the world cannot be missed in the National Museum, Delhi. The Dancing Girl of Mohenjo-daro is a rare artefact made of bronze. Our school textbooks also communicate a wealth of our 5000 years' heritage of art.¶A series of bangles of shell, ivory or thin metal adorn her left upper arm down to her fingers. It is a modern art with a necklace with three pendants bunched together and a few bangles above the elbow and wrist on her right hand.¶She speaks of the fearless human spirit and reminds us of the impact that a work of art leaves on our senses.
+71. 'The Dancing Girl' is caged behind thick glass because ____. | it is a rare artefact | she is the most famous dancer | it is adorned with expensive gemstones | she is fearless
+72. The 'pendants' are a part of ____. | bangles | necklace | wristbands | bands worn on elbows
+73. Read statements (i) and (ii) and choose the correct option from the ones given below :¶(i) Her bangles are made of shell or thin metal.¶(ii) She wears a necklace made of ivory. | (i) is true, but (ii) is false. | (ii) is true, but (i) is false. | Both (i) and (ii) are true. | Both (i) and (ii) are false.
+74. Which of the following is a *not* a synonym of 'fearless' ? | timid | bold | valiant | courageous
+75. The word 'artefacts' means ____. | facts about art | pieces of art made by man | objects dug from the earth | statues made of bronze
+#P Today, giant pandas are found only in the bamboo forests of Central China and in small numbers in Tibet. Bamboo forests provide them food, shelter, as well as safety. Giant pandas spend most of their time wandering in the bamboo forests, chewing bamboo shoots. As they feed only on bamboo shoots and that too in huge quantities, there isn't always enough food for them.¶Due to excessive hunting and destruction of their natural habitat, these exotic animals are nearing extinction. They can be seen only in zoos, where it is not an easy thing to take care of giant pandas, because it would be difficult to find food to feed them.
+76. Why is it difficult to take care of a giant panda in a zoo ? | The zoo is a crowded place. | It is difficult to take care of their young ones in a zoo. | It is difficult to find enough food to feed them. | Pandas are afraid of hunters.
+77. What is the staple food of giant pandas ? | Bamboo trees | Bamboo shoots | Bamboo leaves | Green leaves and grass
+78. Why is this exotic animal nearing extinction ? | Most of them are kept in the zoos for entertainment. | Due to excessive hunting and destruction of their natural habitat. | China does not have many bamboo forests. | They often die immediately after they are born.
+79. Which of the following words is an antonym of the word 'giant' ? | big | large | tiny | long
+80. Zoo is a place where ____. | the birds are kept in cages | animals eat and take rest | children go to entertain animals | animals and birds are kept in enclosures and cages

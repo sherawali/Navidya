@@ -1,0 +1,55 @@
+@id 2024
+@title JNVST 2024
+@date 20 January 2024
+@booklet VS246J ENGL
+@code J
+@key41 AACDADBBBDDCCDADACCBACADCABADCDBCDABACCC
+@keynote Q41-80: coaching key (Kranthi Keen, Set J), har answer dobara solve karke check kiya gaya — sab match; Section II ke uttar The Speedy Brains ki key se bhi milte hain. Q41 (bar chart) aur Q42 (kon ka chitra) ke chitra asli paper ke aankdon se dobara banaye gaye hain — maap aur sankhyayen wahi hain.
+@note41 Chitra asli paper ke aankdon se dobara banaya gaya hai. Australia 32 − Pakistan 24 = 8.
+@note42 Chitra asli paper ke anusaar dobara banaya gaya hai (paimane par nahi). x + 2x + 4x + 6x + 100° = 360°, isliye 13x = 260°, x = 20°. Kon: 20°, 40°, 80°, 120°.
+[ARITH]
+41. The given bar chart shows the number of matches played by cricket teams of different countries in a year. How many more matches were played by Australia than Pakistan ? [[img:q41.png]] | 8 | 2 | 4 | 6
+42. In the figure, the measures of ∠AOB, ∠BOC, ∠COD and ∠DOE respectively are : [[img:q42.png]] | 20°, 40°, 80°, 120° | 30°, 30°, 70°, 130° | 40°, 30°, 120°, 70° | 50°, 20°, 80°, 110°
+43. 30009 is same as : | 30 ten thousands and 9 tens | 30 thousands and 9 hundreds | 3 ten thousands and 9 ones | 3 ten thousands and 9 tens
+44. If the sum of two angles is an obtuse angle, then which of the following is not possible ? | one right angle and one acute angle. | one obtuse angle and one acute angle. | two acute angles. | two right angles.
+45. Sumit weighs 107 kg and Sanjay weighs 82 kg. The difference of their weight if the weight of each is rounded off to the nearest tens is : | 30 kg | 100 kg | 40 kg | 20 kg
+46. If each side of a square is decreased to one-third of itself, then the area of the square will be decreased to : | one-seventh | one-third | one-eighth | one-ninth
+47. A machine can print 12 pages in a minute. How long will the machine take to print 5760 pages ? | 7 hours | 8 hours | 8{1/2} hours | 9 hours
+48. The profit earned in selling an article for ₹ 2540 is equal to the loss incurred in selling it at ₹ 1850. The cost price of the article is : | ₹ 2095 | ₹ 2195 | ₹ 2010 | ₹ 2020
+49. The simplification of 5{3/8} × 8{1/8} − 3{1/8} × 5{5/8} gives approximately : | 25 | 26 | 27 | 30
+50. The cost price of a book is ₹ 100. A shopkeeper sells 3 such books for ₹ 275. What is his profit or loss ? | Profit of ₹ 175 | Profit of ₹ 25 | Loss of ₹ 175 | Loss of ₹ 25
+51. The sum of the digits of a number is subtracted from the number. The resulting number is always divisible by : | 2 | 7 | 5 | 9
+52. Conversion of 31{7/16} into decimal is : | 314.375 | 3.14375 | 31.4375 | 31.475
+53. A fraction remains the same or equivalent if : | the same number is added to the numerator and the denominator. | the same number is subtracted from the numerator and the denominator. | the numerator and the denominator are multiplied by the same number other than zero. | it is multiplied by its reciprocal.
+54. The number of packets of sweets weighing {2/3} kg each, that can be made from 30 kg of sweets is : | 20 | 30 | 40 | 45
+55. If 4392 ÷ 3.66 = 1200, then 439.2 ÷ 36.6 = | 12 | 0.12 | 1.02 | 1.2
+56. The area of a rectangular plot is 616 sq.m. and its breadth is 22 m. The cost of fencing the plot at the rate of ₹ 7.50 per metre is : | ₹ 1500 | ₹ 375 | ₹ 4620 | ₹ 750
+57. The perimeter of a square is equal to the perimeter of a rectangle of length 17 m and breadth 11 m. The area of square (in m²) is : | 196 | 14 | 187 | 121
+58. If {a/b} is a fraction, where a = b − 3 and {a+10/b} − {a/b} = {10/7}, then {a/b} is : | {8/11} | {2/5} | {4/7} | {5/8}
+59. The product of the greatest 3-digit number and the least number of 3-digits which can be formed using digits 9, 6 and 0 is : | 66240 | 999000 | 584640 | 869760
+60. If we write all the numbers from 1 to 100, the number of times the digit 9 occurs is : | 19 | 20 | 21 | 23
+[LANG]
+#P You might have heard about this great environmentalist and social worker, Sunderlal Bahuguna. He was born in a small village of Uttarakhand. His village was situated in the upper hills surrounded by green forests. The forests were covered with precious trees. Many sports goods manufacturing companies started cutting trees for making goods. It resulted in devastating floods in the adjoining areas. People faced many problems due to floods. They understood the importance of forests in their lives.
+61. Sunderlal Bahuguna was a great ____. | environmentalist | scientist | teacher | doctor
+62. His village was surrounded by ____. | dark forests | brown forests | green forests | dry forests
+63. Cutting forests resulted in ____. | devastating floods | flood-gates | droughts | flood-lights
+64. 'Sunderlal Bahuguna' is a/an ____ noun. | common | collective | abstract | proper
+65. 'Precious' is the synonym of ____. | hateful | loathsome | priceless | useless
+#P Humility is a great virtue. It means being humble, meek and modest. It is the opposite of being proud. It is the quality of keeping oneself under control. Such a person is not stubborn. He is open to the advice of others and learns from their experience. He is the master of himself. He does not become annoyed easily. A humble person admits his mistakes and shortcomings with a smile. He is thoughtful because he is not self-centred.
+66. Humility is a great ____. | quality | evil | sin | fault
+67. Humility means ____. | being arrogant | being humble | being cruel | being unkind
+68. A humble person learns from ____. | others' experience | his own experience | teachers' experience | parents' experience
+69. 'Proud' is the synonym of ____. | humble | meek | modest | arrogant
+70. 'Stubborn' is the antonym of ____. | adamant | hard | agreeable | wilful
+#P Expressing gratitude is a great virtue which every human being should possess. It is a feeling whereby we express our thanks to someone. We can express our gratitude in various forms. We can be grateful in our thoughts, words, and actions. When we say 'Thank you' it means we are grateful. We should be grateful to everyone who is helpful to us. We should be grateful to God because 'He' has blessed us with many good things. We should say thanks to Him from the bottom of our heart.
+71. 'Thank you' means that we are ____. | superior | sad | miserable | grateful
+72. What is a great virtue ? | Expressing cruelty | Expressing gratitude | Expressing sorrow | Expressing misery
+73. One can be grateful in one's ____ also. | virtues | duties | thoughts | earnings
+74. 'Helpful' is a/an ____. | Noun | Pronoun | Verb | Adjective
+75. 'Virtue' means ____. | quality | heroism | evil | peace
+#P Scientists and doctors warn us about the dangerous effects of TV on various systems and organs of our body. Everyone on an average watches TV for three to four hours daily, which weakens the eyesight. Children are the most affected because they watch TV from a close range, which is more harmful. This has also resulted in a general complaint of headache.¶Watching TV for long hours is harmful for our physical health and mental growth. The high-pitched sound of dance, music and fights presented in various programmes may result in deafness. Watching TV continuously in one posture also causes joint pain, backache and muscle pain. Eating while watching TV makes our digestive system sluggish and causes obesity. Scenes of horror and violence cause psychological problems among the youth.
+76. Watching TV continuously for long hours does not affect our ____. | mental health | height | digestion | weight
+77. 'Scenes of horror and violence cause psychological problems among the youth.' The 'psychological problems' refer to the problems connected with ____. | mind | heart | digestive system | hearing ability
+78. Watching TV mostly affects the eyesight of children because ____. | they have sluggish digestive system | they sit in wrong postures while watching TV | they watch TV from close | they eat while watching TV
+79. The synonym of the word 'sluggish' is ____. | energetic | busy | slow | brisk
+80. The antonym of the word 'harmful' as used in the passage is ____. | injurious | hopeless | useful | dangerous
