@@ -277,7 +277,9 @@ def p1_chiral(rng):
     g = glyph(rng)
     ks = rng.sample(range(4), 3)
     opts = [rot(flipH(g), 90 * rng.randrange(4))] + [rot(g, 90 * k) for k in ks]
-    return dict(opts=opts, note='Baaki teen aakritiyan ek hi aakriti ko ghumane se banti hain. ({A}) ghumane se nahi banti — wo us aakriti ka ulta (darpan) roop hai.')
+    return dict(opts=opts,
+                note='बाक़ी तीन आकृतियाँ एक ही आकृति को घुमाने से बनती हैं। ({A}) घुमाने से नहीं बनती — वह उस आकृति का उलटा (दर्पण) रूप है।',
+                note_en='The other three figures are rotations of the same figure. ({A}) cannot be obtained by rotation — it is the mirror (flipped) image.')
 
 
 def p1_count(rng):
@@ -294,9 +296,11 @@ def p1_count(rng):
             else: f.line(50 + (R - 5) * sin(a), cy - (R - 5) * cos(a), 50 + (R + 4) * sin(a), cy - (R + 4) * cos(a))
         return f
     odd = one(ns[0], ns[0] + rng.choice([1, -1] if ns[0] > 3 else [1]))
-    thing = {'dot': 'binduon', 'ring': 'chhote golon', 'tick': 'chhoti rekhaon'}[mark]
+    thing_hi = {'dot': 'बिंदुओं', 'ring': 'छोटे गोलों', 'tick': 'छोटी रेखाओं'}[mark]
+    thing_en = {'dot': 'dots', 'ring': 'small circles', 'tick': 'short ticks'}[mark]
     return dict(opts=[odd] + [one(n, n) for n in ns[1:]],
-                note='Baaki teeno me andar ke %s ki sankhya bahari aakriti ki bhujaon ke barabar hai. ({A}) me ye sankhya barabar nahi hai.' % thing)
+                note='बाक़ी तीनों में अंदर के %s की संख्या बाहरी आकृति की भुजाओं के बराबर है। ({A}) में यह संख्या बराबर नहीं है।' % thing_hi,
+                note_en='In the other three figures, the number of inner %s equals the number of sides of the outer shape. In ({A}), these counts do not match.' % thing_en)
 
 
 def p1_inner(rng):
@@ -308,7 +312,8 @@ def p1_inner(rng):
         return add_shape(f, i, 50, 52 if o == 'triangle' else 50, 13 if o == 'triangle' else 15, fillin)
     other = rng.choice([s for s in pool if s != outs[0]])
     return dict(opts=[one(outs[0], other)] + [one(o, o) for o in outs[1:]],
-                note='Baaki teeno me andar wali aakriti wahi hai jo bahar wali hai. ({A}) me andar aur bahar ki aakriti alag hai.')
+                note='बाक़ी तीनों में अंदर वाली आकृति वही है जो बाहर वाली है। ({A}) में अंदर और बाहर की आकृति अलग है।',
+                note_en='In the other three figures, the inner shape is the same as the outer shape. In ({A}), the inner and outer shapes are different.')
 
 
 def p1_turn(rng):
@@ -324,7 +329,8 @@ def p1_turn(rng):
         return f.dot(50, 50, 4)
     cw = rng.random() < 0.5
     return dict(opts=[one(not cw), one(cw), one(cw), one(cw)],
-                note='Baaki teeno me teer %s ghoom raha hai. ({A}) me teer ulti disha me ghoom raha hai.' % ('ghadi ki disha me' if cw else 'ghadi ki ulti disha me'))
+                note='बाक़ी तीनों में तीर %s घूम रहा है। ({A}) में तीर उलटी दिशा में घूम रहा है।' % ('घड़ी की दिशा में' if cw else 'घड़ी की उलटी दिशा में'),
+                note_en='In the other three figures, the arrow turns %s. In ({A}), it turns in the opposite direction.' % ('clockwise' if cw else 'anticlockwise'))
 
 
 def p1_half(rng):
@@ -348,7 +354,8 @@ def p1_half(rng):
     k0 = pick[0][1]
     odd = one(pick[0][0], k0, k0 // 2 + rng.choice([1, -1]))
     return dict(opts=[odd] + [one(kd, k, k // 2) for kd, k in pick[1:]],
-                note='Baaki teeno me aakriti ka theek aadha bhaag kaala (chhayankit) hai. ({A}) me aadha bhaag kaala nahi hai.')
+                note='बाक़ी तीनों में आकृति का ठीक आधा भाग काला (छायांकित) है। ({A}) में आधा भाग काला नहीं है।',
+                note_en='In the other three figures, exactly half of the shape is shaded. In ({A}), the shaded portion is not half.')
 
 
 # ================================================================== PART 2  figure matching
@@ -395,7 +402,8 @@ def p2_match(rng):
         if len(opts) == 4: break
     need(len(opts) == 4)
     return dict(q=[(base, False, 100)], opts=opts,
-                note='({A}) hi prashn aakriti jaisi hai. Baaki teeno me koi ek chinh ghuma hua hai ya do chinhon ki jagah badli hui hai — har chinh ki disha dhyan se milaiye.')
+                note='({A}) ही प्रश्न आकृति जैसी है। बाक़ी तीनों में कोई एक चिह्न घूमा हुआ है या दो चिह्नों की जगह बदली हुई है — हर चिह्न की दिशा ध्यान से मिलाइए।',
+                note_en='({A}) is an exact match for the question figure. In the other three, one symbol is rotated or two symbols have swapped places — check the orientation of every symbol carefully.')
 
 
 # ================================================================== PART 3  pattern completion
@@ -440,8 +448,10 @@ def p3_pattern(rng):
         opts = [tile(right), tile(flipH(right, 25)), tile(rot(right, 90, c)), tile(nm if rng.random() < 0.6 else flipV(right, 25))]
         if not distinct(opts, 110): continue
         return dict(q=[(whole, False, 100)], opts=opts,
-                    note=('Poora pattern %s hai. Khaali hisse me wahi tukda aayega jo is niyam se banta hai — wo ({A}) hai. Baaki tukdon me disha ulti hai ya ek rekha kam hai.'
-                          % ('upar-neeche aur daayen-baayen dono taraf se darpan jaisa (symmetrical)' if mirror else 'beech ke bindu ke charon or ghoom kar bana')))
+                    note=('पूरा पैटर्न %s है। खाली हिस्से में वही टुकड़ा आएगा जो इस नियम से बनता है — वह ({A}) है। बाक़ी टुकड़ों में दिशा उलटी है या एक रेखा कम है।'
+                          % ('ऊपर-नीचे और दाएँ-बाएँ दोनों तरफ़ से दर्पण जैसा (सममित)' if mirror else 'बीच के बिंदु के चारों ओर घूम कर बना')),
+                    note_en=('The full pattern %s. Only ({A}) follows this rule to fill the missing quarter; the others are flipped or missing a line.'
+                             % ('is symmetric both horizontally and vertically' if mirror else 'is formed by rotating around the centre')))
     raise Retry()
 
 
@@ -466,9 +476,11 @@ def p4_rotate(rng):
         if distinct(opts + [c], 90): opts.append(c)
         if len(opts) == 4: break
     need(len(opts) == 4)
-    way = 'ghadi ki disha me' if step > 0 else 'ghadi ki ulti disha me'
+    way_hi = 'घड़ी की दिशा में' if step > 0 else 'घड़ी की उलटी दिशा में'
+    way_en = 'clockwise' if step > 0 else 'anticlockwise'
     return dict(q=[(x, True, 100) for x in q] + [(None, True, 100)], opts=opts,
-                note='Har agle chitra me aakriti %s %d° ghoomti hai. Teesre chitra ko utna hi aur ghumane par ({A}) milta hai.' % (way, abs(step)))
+                note='हर अगले चित्र में आकृति %s %d° घूमती है। तीसरे चित्र को उतना ही और घुमाने पर ({A}) मिलता है।' % (way_hi, abs(step)),
+                note_en='At each step, the figure rotates %d° %s. Rotating the third figure by the same angle gives ({A}).' % (abs(step), way_en))
 
 
 def p4_move(rng):
@@ -487,9 +499,11 @@ def p4_move(rng):
     q = [fr(a + s1 * i, b + s2 * i) for i in range(3)]
     opts = [fr(a + s1 * 3, b + s2 * 3), fr(a + s1 * 3, b + s2 * 2), fr(a + s1 * 2, b + s2 * 3), fr(a + s1 * 4, b + s2 * 4)]
     need(distinct(opts, 60))
-    nm = {'tri': 'tribhuj', 'ring': 'chhota gola', 'sq': 'chhota varg'}[kind]
+    nm_hi = {'tri': 'त्रिभुज', 'ring': 'छोटा गोला', 'sq': 'छोटा वर्ग'}[kind]
+    nm_en = {'tri': 'triangle', 'ring': 'small circle', 'sq': 'small square'}[kind]
     return dict(q=[(x, True, 100) for x in q] + [(None, True, 100)], opts=opts,
-                note='Kaala bindu har baar ghadi ki disha me %d sthan aage badhta hai aur andar ka %s ghadi ki ulti disha me %d sthan. Dono ko ek-ek kadam aur badhane par ({A}) milta hai.' % (s1, nm, -s2))
+                note='काला बिंदु हर बार घड़ी की दिशा में %d स्थान आगे बढ़ता है और अंदर का %s घड़ी की उलटी दिशा में %d स्थान। दोनों को एक-एक कदम और बढ़ाने पर ({A}) मिलता है।' % (s1, nm_hi, -s2),
+                note_en='The black dot moves %d step(s) clockwise each turn while the inner %s moves %d step(s) anticlockwise. Advancing both one more turn gives ({A}).' % (s1, nm_en, -s2))
 
 
 def p4_grow(rng):
@@ -507,7 +521,8 @@ def p4_grow(rng):
         A = lambda n: [a0 + d * 45 * i for i in range(n)]
         q = [fr(A(s + i)) for i in range(3)]
         opts = [fr(A(s + 3)), fr(A(s + 4)), fr(A(s + 2) + [a0 + d * 45 * (s + 3)]), fr(A(s + 2) + [a0 - d * 45])]
-        note = 'Har agle chitra me usi disha me ek nayi rekha judti hai (%d, %d, %d ...). Chauthe chitra me %d rekhayen hongi aur nayi rekha pichhli ke theek baad aayegi — ({A}).' % (s, s + 1, s + 2, s + 3)
+        note = 'हर अगले चित्र में उसी दिशा में एक नई रेखा जुड़ती है (%d, %d, %d …)। चौथे चित्र में %d रेखाएँ होंगी और नई रेखा पिछली के ठीक बाद आएगी — ({A})।' % (s, s + 1, s + 2, s + 3)
+        note_en = 'Each step adds one new line in the same direction (%d, %d, %d …). The fourth figure has %d lines, with the new one right after the last — ({A}).' % (s, s + 1, s + 2, s + 3)
     else:
         n = rng.choice([6, 8]); s = rng.choice([1, 2]); a0 = rng.randrange(n); d = rng.choice([1, -1])
         V = ngon(n, 50, 50, 38, 0 if n == 6 else 22.5)
@@ -520,9 +535,10 @@ def p4_grow(rng):
         E = lambda k: [a0 + d * i for i in range(k)]
         q = [fr(E(s + i)) for i in range(3)]
         opts = [fr(E(s + 3)), fr(E(s + 4)), fr(E(s + 2) + [a0 + d * (s + 3)]), fr(E(s + 2) + [a0 - d])]
-        note = 'Har agle chitra me ek nayi bhuja usi disha me judti jaati hai. Chauthe chitra me %d bhujayen lagataar judi hongi — ({A}).' % (s + 3)
+        note = 'हर अगले चित्र में एक नई भुजा उसी दिशा में जुड़ती जाती है। चौथे चित्र में %d भुजाएँ लगातार जुड़ी होंगी — ({A})।' % (s + 3)
+        note_en = 'Each step adds one adjacent side in the same direction. The fourth figure has %d consecutive sides — ({A}).' % (s + 3)
     need(distinct(opts, 60))
-    return dict(q=[(x, True, 100) for x in q] + [(None, True, 100)], opts=opts, note=note)
+    return dict(q=[(x, True, 100) for x in q] + [(None, True, 100)], opts=opts, note=note, note_en=note_en)
 
 
 def p4_turnfill(rng):
@@ -537,29 +553,32 @@ def p4_turnfill(rng):
     opts = [fr(k0 + d * 3, f0 + 3), fr(k0 + d * 3, f0 + 2), fr(k0 + d * 2, f0 + 3), fr(k0 + d * 1, f0 + 3)]
     need(distinct(opts, 90))
     return dict(q=[(x, True, 100) for x in q] + [(None, True, 100)], opts=opts,
-                note='Aakriti har baar %s 90° ghoomti hai aur uska rang baari-baari se badalta hai (kaala, safed, kaala ...). Isliye chautha chitra ({A}) hoga.' % ('ghadi ki disha me' if d > 0 else 'ghadi ki ulti disha me'))
+                note='आकृति हर बार %s 90° घूमती है और उसका रंग बारी-बारी से बदलता है (काला, सफ़ेद, काला …)। इसलिए चौथा चित्र ({A}) होगा।' % ('घड़ी की दिशा में' if d > 0 else 'घड़ी की उलटी दिशा में'),
+                note_en='Each step rotates the shape 90° %s and alternates its fill (black, white, black …). Thus the fourth figure is ({A}).' % ('clockwise' if d > 0 else 'anticlockwise'))
 
 
 # ================================================================== PART 5  analogy
-def analogy(a, b, c, opts, note, frame=True):
+def analogy(a, b, c, opts, note, frame=True, note_en=''):
     frame = True
     q = [(a, frame, 100), (b, frame, 100), (c, frame, 100), (Fig().text(50, 66, '?', 46), True, 100)]
-    return dict(q=q, opts=opts, note=note, gaps=[8, 34, 8])
+    return dict(q=q, opts=opts, note=note, note_en=note_en, gaps=[8, 34, 8])
 
 
 def p5_turn(rng):
-    ops = {'r90': (lambda f: rot(f, 90), 'ghadi ki disha me 90° ghumaya gaya hai'),
-           'r270': (lambda f: rot(f, 270), 'ghadi ki ulti disha me 90° ghumaya gaya hai'),
-           'r180': (lambda f: rot(f, 180), 'aadha chakkar (180°) ghumaya gaya hai'),
-           'fh': (flipH, 'daayen-baayen palat diya gaya hai (khadi rekha me darpan)'),
-           'fv': (flipV, 'upar-neeche palat diya gaya hai')}
-    key = rng.choice(list(ops)); T, words = ops[key]
+    ops = {'r90': (lambda f: rot(f, 90), 'घड़ी की दिशा में 90° घुमाया गया है', 'rotated 90° clockwise'),
+           'r270': (lambda f: rot(f, 270), 'घड़ी की उलटी दिशा में 90° घुमाया गया है', 'rotated 90° anticlockwise'),
+           'r180': (lambda f: rot(f, 180), 'आधा चक्कर (180°) घुमाया गया है', 'rotated 180°'),
+           'fh': (flipH, 'दाएँ-बाएँ पलट दिया गया है (खड़ी रेखा में दर्पण)', 'flipped left-to-right'),
+           'fv': (flipV, 'ऊपर-नीचे पलट दिया गया है', 'flipped top-to-bottom')}
+    key = rng.choice(list(ops)); T, words_hi, words_en = ops[key]
     g1 = glyph(rng); g2 = glyph(rng)
     need(diff(g1, g2) > 200)
     others = [k for k in ops if k != key]; rng.shuffle(others)
     opts = [T(g2)] + [ops[k][0](g2) for k in others[:2]] + [g2]
     need(distinct(opts, 110))
-    return analogy(g1, T(g1), g2, opts, 'Pehle jode me doosri aakriti pehli ko lekar %s. Teesri aakriti ke saath wahi karne par ({A}) milta hai.' % words)
+    return analogy(g1, T(g1), g2, opts,
+                   'पहले जोड़े में दूसरी आकृति पहली को %s। तीसरी आकृति के साथ वही करने पर ({A}) मिलता है।' % words_hi,
+                   note_en='In the first pair, the second figure is the first figure %s. Applying the same rule to the third figure gives ({A}).' % words_en)
 
 
 def p5_invert(rng):
@@ -590,7 +609,8 @@ def p5_invert(rng):
         if len(opts) == 4: break
     need(len(opts) == 4)
     return analogy(build(k1, p1), build(k1, [not x for x in p1]), build(k2, p3), opts,
-                   'Pehle jode me kaale hisse safed aur safed hisse kaale ho gaye hain. Teesri aakriti me yahi badlav karne par ({A}) milta hai.', frame=False)
+                   'पहले जोड़े में काले हिस्से सफ़ेद और सफ़ेद हिस्से काले हो गए हैं। तीसरी आकृति में यही बदलाव करने पर ({A}) मिलता है।', frame=False,
+                   note_en='In the first pair, black and white regions swap colours. Applying the same rule to the third figure gives ({A}).')
 
 
 def p5_swap(rng):
@@ -607,7 +627,8 @@ def p5_swap(rng):
     opts = [one(d, c), one(c, d), one(d, d), one(rng.choice([d, c]), e)]
     need(distinct(opts, 110))
     return analogy(one(a, b), one(b, a), one(c, d), opts,
-                   'Pehle jode me andar wali aakriti bahar aa gayi hai aur bahar wali andar chali gayi hai. Teesri aakriti me yahi adla-badli karne par ({A}) milta hai.', frame=False)
+                   'पहले जोड़े में अंदर वाली आकृति बाहर आ गई है और बाहर वाली अंदर चली गई है। तीसरी आकृति में यही अदला-बदली करने पर ({A}) मिलता है।', frame=False,
+                   note_en='In the first pair, the inner and outer shapes swap places. Applying the same swap to the third figure gives ({A}).')
 
 
 def p5_sides(rng):
@@ -621,7 +642,8 @@ def p5_sides(rng):
     opts = [one(n3 + 1, k3 - 1), one(n3 + 1, k3), one(n3, k3 - 1), one(n3 + 1, k3 + 1)]
     need(distinct(opts, 60))
     return analogy(one(n1_, k1), one(n1_ + 1, k1 - 1), one(n3, k3), opts,
-                   'Pehle jode me bhujaon ki sankhya 1 badh gayi hai aur binduon ki sankhya 1 ghat gayi hai. Teesri aakriti me yahi karne par ({A}) milta hai.', frame=False)
+                   'पहले जोड़े में भुजाओं की संख्या 1 बढ़ गई है और बिंदुओं की संख्या 1 घट गई है। तीसरी आकृति में यही करने पर ({A}) मिलता है।', frame=False,
+                   note_en='In the first pair, the number of sides increases by 1 and the number of dots decreases by 1. Doing the same to the third figure gives ({A}).')
 
 
 # ================================================================== PART 6  completing a geometrical figure
@@ -690,9 +712,11 @@ def p6_complete(rng):
             if distinct(opts + [c], 80): opts.append(c)
             if len(opts) == 4: break
         if len(opts) < 4: continue
-        nm = {'square': 'varg', 'circle': 'vritt (gola)', 'triangle': 'tribhuj'}[kind]
+        nm_hi = {'square': 'वर्ग', 'circle': 'वृत्त (गोला)', 'triangle': 'त्रिभुज'}[kind]
+        nm_en = {'square': 'square', 'circle': 'circle', 'triangle': 'triangle'}[kind]
         return dict(q=[(piece(give(path(base))), False, 100)], opts=opts,
-                    note='Prashn aakriti ke kate hue kinare me jo ubhaar aur gaddhe hain, theek unke ulte ubhaar-gaddhe ({A}) me hain. Dono ko jodne par poora %s banta hai.' % nm)
+                    note='प्रश्न आकृति के कटे हुए किनारे में जो उभार और गड्ढे हैं, ठीक उनके उलटे उभार-गड्ढे ({A}) में हैं। दोनों को जोड़ने पर पूरा %s बनता है।' % nm_hi,
+                    note_en='The bumps and notches along the cut edge of ({A}) are the exact opposite of the question figure. Fitting them together completes the %s.' % nm_en)
     raise Retry()
 
 
@@ -702,14 +726,20 @@ def p7_mirror(rng):
     extra = Fig(); name = rng.choice(['flag', 'L', 'tri', 'half', 'arrow'])
     spots = [(x, y) for x in (22, 50, 78) for y in (22, 50, 78)]
     rng.shuffle(spots)
+    gr = ras(g); fgr = ras(flipH(g))
     for x, y in spots:
-        e = place(name, x, y, rng.randrange(4))
-        if np.count_nonzero(ras(e) & ras(scale(g, 1.0))) == 0 and diff(e, Fig()) > 0:
-            # keep the small symbol clear of the line figure
-            gr = ras(g); er = ras(e)
-            ys_, xs_ = np.nonzero(er)
-            box = gr[max(0, ys_.min() - 8):ys_.max() + 9, max(0, xs_.min() - 8):xs_.max() + 9]
-            if not box.any(): extra = e; break
+        ks = list(range(4)); rng.shuffle(ks)
+        for k in ks:
+            e = place(name, x, y, k)
+            if np.count_nonzero(ras(e) & gr) == 0 and np.count_nonzero(ras(e) & fgr) == 0 and diff(e, Fig()) > 0:
+                # keep the small symbol clear of both the line figure and its horizontal mirror
+                er = ras(e)
+                ys_, xs_ = np.nonzero(er)
+                y0, y1 = max(0, ys_.min() - 10), ys_.max() + 11
+                x0, x1 = max(0, xs_.min() - 10), xs_.max() + 11
+                if not gr[y0:y1, x0:x1].any() and not fgr[y0:y1, x0:x1].any():
+                    extra = e; break
+        if extra.items: break
     need(extra.items)
     full = Fig().add(g, extra)
     need(distinct(dihedral(full), 110))
@@ -724,7 +754,8 @@ def p7_mirror(rng):
     need(len(opts) == 4)
     qf = Fig().add(full).line(110, 13, 110, 87, w=1.6).text(110, 10, 'X', 11).text(110, 98.5, 'Y', 11)
     return dict(q=[(qf, False, 122)], opts=opts,
-                note='Darpan khadi rekha XY par hai, isliye pratibimb me daayan-baayan aapas me badal jaata hai, upar-neeche wahi rehta hai. Aisa chitra ({A}) hai.')
+                note='दर्पण खड़ी रेखा XY पर है, इसलिए प्रतिबिंब में दायाँ-बायाँ आपस में बदल जाता है, ऊपर-नीचे वही रहता है। ऐसा चित्र ({A}) है।',
+                note_en='The mirror is along the vertical line XY, so left and right reverse while top and bottom stay unchanged. ({A}) is the exact mirror image.')
 
 
 # ================================================================== PART 8  paper folding and punching
@@ -829,7 +860,8 @@ def p8_punch(rng, kind):
         if len(opts) < 4: continue
         nf = len(folds)
         return dict(q=[(c, False, 100) for c in cells], opts=opts, gaps=[6] * 4,
-                    note='Kaagaz %d baar moda gaya hai, isliye har chhed kholne par %d jagah dikhega. Har mod-rekha ke dono taraf chhed barabar doori par, aamne-saamne (darpan ki tarah) bante hain — ({A}).' % (nf, 2 ** nf))
+                    note='काग़ज़ %d बार मोड़ा गया है, इसलिए हर छेद खोलने पर %d जगह दिखेगा। हर मोड़-रेखा के दोनों तरफ़ छेद बराबर दूरी पर, आमने-सामने (दर्पण की तरह) बनते हैं — ({A})।' % (nf, 2 ** nf),
+                    note_en='The paper is folded %d time(s), so each punch unfolds to %d holes symmetric across every fold line — ({A}).' % (nf, 2 ** nf))
     raise Retry()
 
 
@@ -940,7 +972,8 @@ def p9_pieces(rng):
             for p, px, py in placed:
                 f.poly([(a * s + px + (100 - tw) / 2.0, b * s + py + (100 - th) / 2.0) for a, b in p])
             return dict(q=[(f, False, 100)], opts=opts,
-                        note='Prashn aakriti me %d tukde hain. Har uttar aakriti ke tukdon ka aakaar aur naap milaiye — sirf ({A}) theek inhi tukdon se bani hai, baaki me tukde alag aakaar ke hain.' % len(pcs))
+                        note='प्रश्न आकृति में %d टुकड़े हैं। हर उत्तर आकृति के टुकड़ों का आकार और नाप मिलाइए — सिर्फ़ ({A}) ठीक इन्हीं टुकड़ों से बनी है, बाक़ी में टुकड़े अलग आकार के हैं।' % len(pcs),
+                        note_en='The question figure has %d cut-out pieces. Match the exact shape and size of each piece — only ({A}) can be formed from these exact pieces.' % len(pcs))
     raise Retry()
 
 
@@ -1013,7 +1046,7 @@ def p10_hidden(rng):
             tries = 0
             while len(F) < target and tries < 400:
                 tries += 1
-                if rng.random() < 0.45:                                        # a long straight line across the square
+                if rng.random() < 0.28:                                        # occasional straight line across the square
                     t = rng.choice(['h', 'v', 'd', 'e']); c = rng.randrange(1, 4)
                     if t == 'h': add = [((x, c), (x + 1, c)) for x in range(4)]
                     elif t == 'v': add = [((c, y), (c, y + 1)) for y in range(4)]
@@ -1026,7 +1059,7 @@ def p10_hidden(rng):
                 if forbid and any(contains(G, v) for v in V): continue
                 F = G
             return F
-        target = rng.randrange(30, 37)
+        target = rng.randrange(24, 29)
         dx, dy = rng.randrange(0, 5 - w), rng.randrange(0, 5 - h)
         good = set(BORDER) | set(tuple(sorted(((a[0] + dx, a[1] + dy), (b[0] + dx, b[1] + dy)))) for a, b in Xn)
         good = clutter(good, target, False)
@@ -1047,10 +1080,11 @@ def p10_hidden(rng):
             for a, b in sorted(F): f.line(10 + 20 * a[0] + off[0], 10 + 20 * a[1] + off[1], 10 + 20 * b[0] + off[0], 10 + 20 * b[1] + off[1], w=wdt)
             return f
         opts = [draw(F, wdt=1.7) for F in figs]
-        if not distinct(opts, 150): continue
+        if not distinct(opts, 120): continue
         qf = draw(Xn, (40 - 10 * w, 40 - 10 * h))
         return dict(q=[(qf, False, 100)], opts=opts,
-                    note='Prashn aakriti ki har rekha ko uttar aakritiyon me dhoondhiye. Sirf ({A}) me poori aakriti usi naap aur usi disha me chhipi hai; baaki teeno me uski ek rekha gayab hai.')
+                    note='प्रश्न आकृति की हर रेखा को उत्तर आकृतियों में ढूँढ़िए। सिर्फ़ ({A}) में पूरी आकृति उसी नाप और उसी दिशा में छिपी है; बाक़ी तीनों में उसकी एक रेखा ग़ायब है।',
+                    note_en='Trace every segment of the question figure in each option. Only ({A}) contains the exact figure in the same size and orientation; the other three are each missing one segment.')
     raise Retry()
 
 
@@ -1067,7 +1101,9 @@ def make(gen, rng, pos):
         raise RuntimeError('generator failed: %s' % gen)
     opts = d['opts']; right = opts[0]; rest = opts[1:]; rng.shuffle(rest)
     rest.insert(pos, right)
-    d['opts'] = rest; d['ans'] = pos; d['note'] = d['note'].replace('{A}', ABCD[pos])
+    d['opts'] = rest; d['ans'] = pos
+    d['note'] = d['note'].replace('{A}', ABCD[pos])
+    d['note_en'] = d['note_en'].replace('{A}', ABCD[pos])
     return d
 
 
@@ -1085,11 +1121,11 @@ def build_paper(pid):
     out = os.path.join(ROOT, 'papers', pid); os.makedirs(out, exist_ok=True)
     for f in os.listdir(out):
         if f.endswith('.svg'): os.remove(os.path.join(out, f))
-    key = ''; notes = {}
+    key = ''; notes = {}; notes_en = {}
     for n in range(1, 41):
         part = (n - 1) // 4
         d = make(gens[n - 1], random.Random('navidya-mat-%s-q%d' % (pid, n)), pos[n - 1])     # one stream per question
-        key += ABCD[d['ans']]; notes[str(n)] = d['note']
+        key += ABCD[d['ans']]; notes[str(n)] = d['note']; notes_en[str(n)] = d['note_en']
         small = part in (3, 4, 7)
         if part == 0:
             svg, w, h = strip([(f, True, 100) for f in d['opts']], 150, [58] * 4, labels=True)
@@ -1102,7 +1138,7 @@ def build_paper(pid):
         svg, w, h = strip([(f, frame_opts, 100) for f in d['opts']], cs, [10 if small else 16] * 4, labels=True)
         open(os.path.join(out, 'q%02db.svg' % n), 'w').write(svg)
     os.makedirs(os.path.join(ROOT, 'tools', 'gen'), exist_ok=True)
-    json.dump({'key': key, 'notes': notes}, open(os.path.join(ROOT, 'tools', 'gen', pid + '.json'), 'w'), ensure_ascii=False, indent=0)
+    json.dump({'key': key, 'notes': notes, 'notes_en': notes_en}, open(os.path.join(ROOT, 'tools', 'gen', pid + '.json'), 'w'), ensure_ascii=False, indent=0)
     print(pid, key)
 
 
