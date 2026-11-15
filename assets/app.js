@@ -1,7 +1,7 @@
 /* JNVST mock tests – plain ES5, no dependencies, works from any static host (GitHub Pages) */
 (function () {
   'use strict';
-  var V = 4;
+  var V = 5;
   var $app = document.getElementById('app');
   var $toast = document.getElementById('toast');
   var INDEX = window.JNV_INDEX || [];
@@ -12,7 +12,9 @@
   var tick = null;       // timer handle
   var view = '';         // current view name
   var curPaper = null;   // active loaded paper for re-rendering on language switch
-  var focusActiveQ = null;
+  var qEls = [];         // cached .q elements of the continuous exam stream
+  var revFilter = '';    // active answer-review filter, kept across language switches
+  var spyTimer = null;   // scroll-spy throttle
 
   var MEM = {};          // fallback when localStorage is blocked (private mode etc.)
   function get(k, d) { var v; try { v = localStorage.getItem('jnv:' + k); } catch (e) { v = MEM[k]; } if (v == null) v = MEM[k]; try { return v == null ? d : JSON.parse(v); } catch (e2) { return d; } }
@@ -60,10 +62,10 @@
       }
     } catch (e) { }
   }
-  function langSwitcherHtml() {
-    return '<div class="langsw no-print" role="group" aria-label="' + t('भाषा चुनें', 'Choose language') + '">' +
-      '<button type="button" data-act="lang" data-lang="hi" class="' + (hi() ? 'on' : '') + '" aria-pressed="' + hi() + '">हिन्दी</button>' +
-      '<button type="button" data-act="lang" data-lang="en" class="' + (!hi() ? 'on' : '') + '" aria-pressed="' + (!hi()) + '">English</button></div>';
+  function langSwitcherHtml(compact) {
+    return '<div class="langsw no-print' + (compact ? ' compact' : '') + '" role="group" aria-label="' + t('भाषा चुनें', 'Choose language') + '">' +
+      '<button type="button" data-act="lang" data-lang="hi" class="' + (hi() ? 'on' : '') + '" aria-pressed="' + hi() + '"><span class="lgf">हिन्दी</span><span class="lgs">हिं</span></button>' +
+      '<button type="button" data-act="lang" data-lang="en" class="' + (!hi() ? 'on' : '') + '" aria-pressed="' + (!hi()) + '"><span class="lgf">English</span><span class="lgs">EN</span></button></div>';
   }
 
   /* ---------- data ---------- */
@@ -93,25 +95,56 @@
     });
     return out;
   }
-  /* booklet pages, numbered like the real booklet (cover = page 1) */
-  function buildPages(p, forceLang) {
-    var pages = [], no = p.full ? 2 : 12;
+  /* ---------- continuous booklet stream ----------
+     Every Section, Part, direction, passage and question of the paper is rendered
+     once, in booklet order, as one long scrollable stream. No page turning. */
+  function paperStream(p, ansMap, keyed, keyOverride, forcePassLang) {
+    var keyStr = keyOverride || ((lang === 'hi' && p.key_hi) ? p.key_hi : p.key);
+    var pNotes = (hi() && p.notes_hi) ? p.notes_hi : p.notes;
+    var passHi = forcePassLang ? (forcePassLang === 'hi') : hi();
+    function qsHtml(list) {
+      return list.map(function (q) {
+        var x = renderQ(p, q, ansMap[q.n], keyed ? keyStr.charAt(q.n - 1) : null);
+        if (keyed && pNotes && pNotes[q.n]) x = x.replace(/<\/div><\/div>$/, '<div class="qnote">ℹ ' + esc(pNotes[q.n]) + '</div></div></div>');
+        return x;
+      }).join('');
+    }
+    var h = '<div class="runhead"><span>' + esc(fld(p, 'booklet')) + ' – ' + esc(p.code) + '</span><span class="pg">' + esc(fld(p, 'title')) + '</span></div>';
     p.sections.forEach(function (sec) {
-      var shortLbl = fld(sec, 'short');
-      if (sec.parts) sec.parts.forEach(function (pt, i) {
-        pages.push({ no: no++, sec: sec, head: i === 0, part: pt, qs: pt.qs, label: fld(pt, 'part').replace('–', '-') });
-      });
-      if (sec.qs) for (var i = 0; i < sec.qs.length; i += 10) {
-        pages.push({ no: no++, sec: sec, head: i === 0, qs: sec.qs.slice(i, i + 10), cols: true, label: shortLbl });
+      h += '<section class="sec" id="sec-' + sec.id + '" data-sec="' + sec.id + '"><div class="sec-h">' + esc(fld(sec, 'name')) + '<br>' + esc(fld(sec, 'title')) + '</div>';
+      if (sec.id === 'mat' && p.matgen) {
+        h += '<p class="qnote">' + t(
+          'इस खण्ड के चित्र इस साइट के लिए बनाए गए <b>नए अभ्यास प्रश्न</b> हैं (पैटर्न वही, 10 भाग × 4 प्रश्न) — ये ' + esc(fld(p, 'title')) + ' की असली पुस्तिका के चित्र नहीं हैं।',
+          'The figures in this Section are <b>newly generated practice questions</b> (same 10 parts × 4 questions pattern) — not scans from the original ' + esc(fld(p, 'title')) + ' booklet.'
+        ) + '</p>';
       }
-      var psList = secPassages(sec, forceLang);
-      if (psList) for (var j = 0; j < psList.length; j += 2) {
-        var ps = psList.slice(j, j + 2), qs = [];
-        ps.forEach(function (x) { qs = qs.concat(x.qs); });
-        pages.push({ no: no++, sec: sec, head: j === 0, passages: ps, pidx: j, qs: qs, cols: true, label: shortLbl });
+      if (sec.id === 'la' && p.langgen && passHi) {
+        h += '<p class="qnote">इस पेपर की असली हिन्दी पुस्तिका का पाठ ऑनलाइन उपलब्ध न होने के कारण, इस खण्ड में JNVST पैटर्न पर लिखे गए <b>नए हिन्दी अभ्यास गद्यांश</b> दिए गए हैं।</p>';
       }
+      if (sec.parts) {
+        sec.parts.forEach(function (pt) {
+          h += '<div class="part"><div class="part-h">' + esc(fld(pt, 'part')) + '</div>' +
+            '<p class="dir"><b>' + t('निर्देश :', 'Directions :') + '</b> ' + fmt(fld(pt, 'dir')) + '</p>';
+          var cap = fld(pt, 'cap'), f = pt.qs[0];
+          if (cap && f.a) h += '<div class="cap"><span style="flex:' + (f.aw || 1) + ' 1 0%">' + esc(cap) + '</span><span style="flex:' + (f.bw || 3) + ' 1 0%">' + t('उत्तर चित्र', 'Answer Figures') + '</span></div>';
+          h += '<div class="qgroup">' + qsHtml(pt.qs) + '</div></div>';
+        });
+      }
+      if (!sec.parts) {
+        h += '<p class="dir"><b>' + t('निर्देश :', 'Directions :') + '</b> ' + fmt(fld(sec, 'dir')) + '</p>';
+      }
+      if (sec.qs) h += '<div class="qgroup">' + qsHtml(sec.qs) + '</div>';
+      var psList = secPassages(sec, forcePassLang);
+      if (psList) {
+        psList.forEach(function (ps, i) {
+          h += '<div class="passage-wrap"><div class="passage"><h4>' + t('अनुच्छेद – ', 'Passage – ') + (i + 1) + '</h4><p>' +
+            fmt(ps.text).replace(/<br>/g, '</p><p>') + '</p></div>' +
+            '<div class="qgroup">' + qsHtml(ps.qs) + '</div></div>';
+        });
+      }
+      h += '</section>';
     });
-    return pages;
+    return h;
   }
 
   /* ---------- question rendering ---------- */
@@ -136,7 +169,7 @@
     if (q.strip || q.a) {
       var im = function (f, w, hh, alt) { return '<img src="papers/' + p.id + '/' + f + '" width="' + w + '" height="' + hh + '" loading="lazy" decoding="async" alt="' + esc(alt) + '">'; };
       var capQ = t('प्रश्न चित्र', 'Question Figure'), capA = t('उत्तर चित्र', 'Answer Figures');
-      h = '<div class="q fig" id="q' + q.n + '" data-st="' + st + '"><div class="qn">' + q.n + '.</div><div class="qb">' +
+      h = '<div class="q fig" id="q' + q.n + '" data-n="' + q.n + '" data-st="' + st + '"><div class="qn">' + q.n + '.</div><div class="qb">' +
         (q.a ? '<div class="figrow" style="--r:' + Math.min(1, q.aw / q.bw).toFixed(3) + '"><div class="fq" data-cap="' + capQ + '" style="flex:' + q.aw + ' 1 0%">' + im(q.a, q.aw, q.ah, t('प्रश्न ' + q.n + ': प्रश्न चित्र', 'Question ' + q.n + ': question figure')) + '</div><div class="fa" data-cap="' + capA + '" style="flex:' + q.bw + ' 1 0%">' + im(q.b, q.bw, q.bh, t('प्रश्न ' + q.n + ': उत्तर चित्र (A), (B), (C), (D)', 'Question ' + q.n + ': answer figures (A), (B), (C), (D)')) + '</div></div>'
           : '<div class="figone">' + im(q.strip, q.w, q.h, t('प्रश्न ' + q.n + ': चित्र (A), (B), (C), (D)', 'Question ' + q.n + ': figures (A), (B), (C), (D)')) + '</div>') +
         bubbles(q.n, ans, key) + verdict(ans, key) + '</div></div>';
@@ -146,7 +179,7 @@
     var qOpts = (hi() && q.o_hi) ? q.o_hi : q.o;
     var long = false;
     qOpts.forEach(function (o) { if (o.replace(/\{[^}]*\}/g, 'xx').length > 20) long = true; });
-    h = '<div class="q" id="q' + q.n + '" data-st="' + st + '"><div class="qn">' + q.n + '.</div><div class="qb"><p class="qt">' + fmt(qTxt) + '</p>';
+    h = '<div class="q" id="q' + q.n + '" data-n="' + q.n + '" data-st="' + st + '"><div class="qn">' + q.n + '.</div><div class="qb"><p class="qt">' + fmt(qTxt) + '</p>';
     if (q.img) h += '<img class="qimg" src="papers/' + p.id + '/' + q.img + '" width="' + q.w + '" height="' + q.h + '" loading="lazy" decoding="async" alt="' + t('प्रश्न ' + q.n + ' का चित्र', 'Figure for question ' + q.n) + '">';
     h += '<ul class="opts' + (long ? ' long' : '') + '">';
     qOpts.forEach(function (o, i) {
@@ -156,43 +189,6 @@
       h += '<li class="' + c + '" data-act="ans" data-q="' + q.n + '" data-o="' + L[i] + '"><span class="lb">(' + L[i] + ')</span><span>' + fmt(o) + '</span></li>';
     });
     h += '</ul>' + bubbles(q.n, ans, key, 'left') + verdict(ans, key) + '</div></div>';
-    return h;
-  }
-  function renderPage(p, pg, ansMap, keyed, keyOverride) {
-    var odd = pg.no % 2, code = fld(p, 'booklet') + ' – ' + p.code;
-    var keyStr = keyOverride || ((lang === 'hi' && p.key_hi) ? p.key_hi : p.key);
-    var pNotes = (hi() && p.notes_hi) ? p.notes_hi : p.notes;
-    var h = '<div class="runhead">' + (odd ? '<span></span><span class="pg">( ' + pg.no + ' )</span><span>' + esc(code) + '</span>' : '<span>' + esc(code) + '</span><span class="pg">( ' + pg.no + ' )</span><span></span>') + '</div>';
-    if (pg.head) h += '<div class="sec-h">' + esc(fld(pg.sec, 'name')) + '<br>' + esc(fld(pg.sec, 'title')) + '</div>';
-    if (pg.head && pg.sec.id === 'mat' && p.matgen) {
-      h += '<p class="qnote" style="margin:0 0 10px">' + t(
-        'इस खण्ड के चित्र इस साइट के लिए बनाए गए <b>नए अभ्यास प्रश्न</b> हैं (पैटर्न वही, 10 भाग × 4 प्रश्न) — ये ' + esc(fld(p, 'title')) + ' की असली पुस्तिका के चित्र नहीं हैं।',
-        'The figures in this Section are <b>newly generated practice questions</b> (same 10 parts × 4 questions pattern) — not scans from the original ' + esc(fld(p, 'title')) + ' booklet.'
-      ) + '</p>';
-    }
-    if (pg.head && pg.sec.id === 'la' && p.langgen && hi()) {
-      h += '<p class="qnote" style="margin:0 0 10px">इस पेपर की असली हिन्दी पुस्तिका का पाठ ऑनलाइन उपलब्ध न होने के कारण, इस खण्ड में JNVST पैटर्न पर लिखे गए <b>नए हिन्दी अभ्यास गद्यांश</b> दिए गए हैं।</p>';
-    }
-    if (pg.part) {
-      h += '<div class="sec-h">' + esc(fld(pg.part, 'part')) + '</div><p class="dir"><b>' + t('निर्देश :', 'Directions :') + '</b> ' + fmt(fld(pg.part, 'dir')) + '</p>';
-      var cap = fld(pg.part, 'cap');
-      if (cap) { var f = pg.part.qs[0]; h += '<div class="cap"><span style="flex:' + (f.aw || 1) + ' 1 0%">' + esc(cap) + '</span><span style="flex:' + (f.bw || 3) + ' 1 0%">' + t('उत्तर चित्र', 'Answer Figures') + '</span></div>'; }
-    } else if (pg.head) h += '<p class="dir"><b>' + t('निर्देश :', 'Directions :') + '</b> ' + fmt(fld(pg.sec, 'dir')) + '</p>';
-    function qs(list) {
-      return list.map(function (q) {
-        var x = renderQ(p, q, ansMap[q.n], keyed ? keyStr.charAt(q.n - 1) : null);
-        if (keyed && pNotes && pNotes[q.n]) x = x.replace(/<\/div><\/div>$/, '<div class="qnote">ℹ ' + esc(pNotes[q.n]) + '</div></div></div>');
-        return x;
-      }).join('');
-    }
-    if (pg.passages) {
-      h += '<div class="cols">';
-      pg.passages.forEach(function (ps, i) {
-        h += '<div class="passage"><h4>' + t('अनुच्छेद – ', 'Passage – ') + (pg.pidx + i + 1) + '</h4><p>' + fmt(ps.text).replace(/<br>/g, '</p><p>') + '</p></div>' + qs(ps.qs);
-      });
-      h += '</div>';
-    } else h += '<div class="' + (pg.cols ? 'cols' : '') + '">' + qs(pg.qs) + '</div>';
-    if (pg.cols && !pg.passages) h += '<div class="rough">' + t('कच्चे कार्य के लिए जगह', 'SPACE FOR ROUGH WORK') + '</div>';
     return h;
   }
 
@@ -230,8 +226,8 @@
         '<a class="btn primary" href="#/p/' + m.id + (run ? '/exam' : '') + '">' + (run ? t('टेस्ट जारी रखें ▶', 'Resume test ▶') : t('पुस्तिका खोलें ▶', 'Open booklet ▶')) + '</a></div>';
     });
     h += '</div><div class="foot"><p>' + t(
-      '<b>कैसे उपयोग करें:</b> पुस्तिका खोलें → सामान्य निर्देश पढ़ें → टेस्ट शुरू करें। हर प्रश्न के नीचे दिए गए OMR वृत्त (A/B/C/D) को काला करें; आप ऊपर से पूरी OMR उत्तर-पत्रिका कभी भी देख सकते हैं। हर 30 मिनट पर घंटी बजेगी। समय समाप्त होते ही पेपर अपने आप जमा हो जाएगा और तुरंत परिणाम व सही उत्तर दिखाई देंगे। आपके उत्तर केवल आपके फ़ोन/कम्प्यूटर में ही सुरक्षित रहते हैं।',
-      '<b>How to use:</b> Open a booklet → read the instructions → start the test. Fill the OMR circle (A/B/C/D) below each question, or open the OMR sheet anytime from the top bar. A bell rings every 30 minutes. When time runs out, the paper auto-submits and shows your score with correct answers immediately. Your answers are saved locally on your device only.'
+      '<b>कैसे उपयोग करें:</b> पुस्तिका खोलें → सामान्य निर्देश पढ़ें → टेस्ट शुरू करें। सभी 80 प्रश्न एक ही सतत प्रवाह में ऊपर से नीचे मिलते हैं — पृष्ठ पलटने की ज़रूरत नहीं। हर प्रश्न के नीचे दिए गए OMR वृत्त (A/B/C/D) को काला करें, या ऊपर <b>OMR</b> दबाकर किसी भी प्रश्न की संख्या पर टैप करके सीधे उस प्रश्न पर पहुँचें। ऊपर की पट्टी में आपका वर्तमान प्रश्न व शेष समय सदैव दिखता है। हर 30 मिनट पर घंटी बजेगी। समय समाप्त होते ही पेपर अपने आप जमा हो जाएगा और तुरंत परिणाम व सही उत्तर दिखाई देंगे। आपके उत्तर केवल आपके फ़ोन/कम्प्यूटर में ही सुरक्षित रहते हैं।',
+      '<b>How to use:</b> Open a booklet → read the instructions → start the test. All 80 questions are in one continuous scroll – no page turning. Fill the OMR circle (A/B/C/D) below each question, or tap <b>OMR</b> in the top bar and then any question number to jump straight to it. The top bar always shows your current question and the time left. A bell rings every 30 minutes. When time runs out, the paper auto-submits and shows your score with correct answers immediately. Your answers are saved locally on your device only.'
     ) + '</p><p>' + t(
       'प्रश्न-पत्र © नवोदय विद्यालय समिति। यह वेबसाइट केवल निःशुल्क अभ्यास के लिए है, NVS से संबद्ध नहीं है। आधिकारिक जानकारी: navodaya.gov.in',
       'Question papers © Navodaya Vidyalaya Samiti. This site is for free practice only and is not affiliated with NVS. Official site: navodaya.gov.in'
@@ -275,7 +271,7 @@
         '<tr><th colspan="3">कुल योग</th><th>' + n + '</th><th>' + marks(n) + '</th></tr></table></div></li>' +
         '<li>प्रत्येक खण्ड में क्वालिफाई करना आवश्यक है, इसलिए सारा समय किसी एक खण्ड पर न लगाएँ। खण्ड–I में <b>दस भाग</b> हैं और प्रत्येक भाग के अलग निर्देश हैं — उन्हें ध्यान से पढ़ें।</li>' +
         '<li>असली परीक्षा में OMR उत्तर-पत्रिका पर केवल नीले/काले बॉल-पॉइंट पेन का उपयोग होता है और <b>एक बार उत्तर भरने के बाद बदलाव की अनुमति नहीं होती</b>। यही नियम अपनाने के लिए नीचे "सख्त OMR मोड" चुनें।</li>' +
-        '<li>कच्चा कार्य अलग काग़ज़ पर या टेस्ट में दिए गए <b>रफ़ कार्य</b> पैड पर करें।</li>' +
+        '<li>सभी 80 प्रश्न एक ही सतत प्रवाह (scroll) में दिए गए हैं — पृष्ठ पलटने की आवश्यकता नहीं है। किसी भी प्रश्न पर जाने के लिए ऊपर <b>OMR</b> खोलकर उसकी संख्या दबाएँ।</li>' +
         '<li>प्रत्येक 30 मिनट पर घंटी बजेगी।</li>' +
         '<li>किसी भी प्रकार की <b>ऋणात्मक मार्किंग नहीं</b> है। हर प्रश्न का उत्तर दें।</li>' +
         '<li>समय पूरा होने पर पेपर अपने आप जमा हो जाएगा और तुरंत आपका परिणाम व सही उत्तर दिखेंगे।</li>'
@@ -287,7 +283,7 @@
         '<tr><th colspan="3">Total</th><th>' + n + '</th><th>' + marks(n) + '</th></tr></table></div></li>' +
         '<li>A candidate has to qualify in each Section separately, so do not spend all your time on one Section. Section I has <b>ten Parts</b> with separate directions for each Part – read them carefully.</li>' +
         '<li>In the real examination only a blue/black ball-point pen is used on the OMR Answer Sheet and <b>no change of answer is allowed</b>. Tick “Strict OMR” below if you want the same rule here.</li>' +
-        '<li>Do rough work on a separate paper or use the <b>Rough Work</b> pad given in the test.</li>' +
+        '<li>All 80 questions are in one continuous scroll – no page turning. Tap <b>OMR</b> in the top bar and then any question number to jump straight to it.</li>' +
         '<li>A bell will ring after every 30 minutes.</li>' +
         '<li>There is <b>no negative marking</b>. Attempt every question.</li>' +
         '<li>When the time is over the paper is submitted automatically and your result with correct answers is shown.</li>'
@@ -306,14 +302,24 @@
   /* ---------- EXAM ---------- */
   function startExam(p, resume) {
     var saved = resume ? get('run:' + p.id, null) : null;
-    S = { p: p, pages: buildPages(p), list: qList(p), ans: saved ? saved.ans : {}, left: saved ? saved.left : p.minutes * 60, page: saved ? saved.page : 0, strict: saved ? !!saved.strict : !!(document.getElementById('strict') || {}).checked, total: p.minutes * 60 };
+    S = {
+      p: p, list: qList(p), ans: (saved && saved.ans) ? saved.ans : {},
+      left: saved ? saved.left : p.minutes * 60,
+      strict: saved ? !!saved.strict : !!(document.getElementById('strict') || {}).checked,
+      total: p.minutes * 60,
+      scroll: saved ? (+saved.scroll || 0) : 0,
+      active: (saved && +saved.active) ? +saved.active : 0,
+      anchor: null
+    };
     S.deadline = Date.now() + S.left * 1000;
     S.bell = Math.floor((S.total - S.left) / 1800);
-    focusActiveQ = null;
     save();
     examView();
   }
-  function save() { if (S) set('run:' + S.p.id, { ans: S.ans, left: S.left, page: S.page, strict: S.strict }); }
+  function save() {
+    if (!S) return;
+    set('run:' + S.p.id, { ans: S.ans, left: S.left, strict: S.strict, scroll: S.scroll || 0, active: S.active || 0 });
+  }
   function answered() { var c = 0; for (var k in S.ans) if (S.ans[k]) c++; return c; }
   function omrHtml() {
     var h = '<div class="omr"><h3>' + t('ओ० एम० आर० उत्तर-पत्रिका', 'OMR ANSWER SHEET') + '</h3><p class="sm">' + esc(fld(S.p, 'booklet')) + ' · ' + t('कोड ', 'Code ') + esc(S.p.code) + (S.strict ? t(' · सख्त मोड', ' · Strict mode') : '') + '</p>';
@@ -327,57 +333,79 @@
       });
       h += '</div>';
     });
-    return h + '<div class="stat"><span>' + t('भरे गए:', 'Darkened:') + ' <b class="cnt">' + answered() + '</b> / ' + S.list.length + '</span><span>' + t('प्रश्न पर जाने के लिए संख्या दबाएँ', 'Tap a number to open that question') + '</span></div></div>';
+    return h + '<div class="stat"><span>' + t('भरे गए:', 'Darkened:') + ' <b class="cnt">' + answered() + '</b> / ' + S.list.length + '</span><span>' + t('प्रश्न पर जाने के लिए संख्या दबाएँ', 'Tap a number to jump to that question') + '</span></div></div>';
   }
-  function qRangeLabel(pg, activeQ) {
-    if (activeQ) return t('प्र. ' + activeQ, 'Q' + activeQ);
-    return t('प्र. ' + pg.qs[0].n + '–' + pg.qs[pg.qs.length - 1].n, 'Q' + pg.qs[0].n + '–' + pg.qs[pg.qs.length - 1].n);
+  function scrollPos() { return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0; }
+  /* marks a question as the active one: sticky #qind + highlighted OMR row */
+  function setActive(n) {
+    if (!S || !n) return;
+    S.active = n;
+    var qi = document.getElementById('qind');
+    if (qi) qi.textContent = t('प्र. ' + n, 'Q' + n);
+    all('.omr .r').forEach(function (r) { r.className = 'r' + (+r.getAttribute('data-r') === n ? ' cur' : ''); });
+    followInSidebar(n);
+  }
+  /* keep the highlighted row visible inside the sticky desktop OMR sidebar */
+  function followInSidebar(n) {
+    var side = document.getElementById('side');
+    if (!side || side.offsetParent === null) return;
+    var row = side.querySelector('.r[data-r="' + n + '"]');
+    if (!row) return;
+    var sr = side.getBoundingClientRect(), rr = row.getBoundingClientRect();
+    if (rr.top < sr.top + 4) side.scrollTop -= (sr.top + 4 - rr.top);
+    else if (rr.bottom > sr.bottom - 4) side.scrollTop += (rr.bottom - sr.bottom + 4);
+  }
+  /* scroll-spy: follows the continuous stream and keeps the bar + OMR in sync */
+  function scrollSpy() {
+    if (view !== 'exam' || !S) return;
+    if (!qEls.length) qEls = all('#sheet .q');
+    if (!qEls.length) return;
+    var bar = document.getElementById('bar');
+    var off = (bar ? bar.offsetHeight : 48) + 24, cur = qEls[0], i;
+    for (i = 0; i < qEls.length; i++) {
+      if (qEls[i].getBoundingClientRect().top - off <= 0) cur = qEls[i]; else break;
+    }
+    var n = +cur.getAttribute('data-n');
+    if (n && n !== S.active) setActive(n);
+    S.scroll = scrollPos();
+  }
+  function onScroll() {
+    if (spyTimer) return;
+    spyTimer = setTimeout(function () { spyTimer = null; scrollSpy(); }, 90);
   }
   function examView() {
     view = 'exam'; curPaper = S.p;
-    S.pages = buildPages(S.p);
-    var opts = S.pages.map(function (pg, i) {
-      return '<option value="' + i + '">' + t('पृष्ठ ', 'Page ') + pg.no + ' · ' + esc(pg.label) + ' (' + t('प्र.', 'Q') + pg.qs[0].n + '–' + pg.qs[pg.qs.length - 1].n + ')</option>';
-    }).join('');
-    var curPg = S.pages[Math.max(0, Math.min(S.pages.length - 1, S.page))];
-    $app.innerHTML = '<div class="bar"><span class="ttl">' + esc(fld(S.p, 'title')) + ' · ' + esc(fld(S.p, 'booklet')) + ' – ' + esc(S.p.code) + '</span>' +
-      '<span class="qind" id="qind">' + qRangeLabel(curPg, focusActiveQ) + '</span>' +
+    var y = S.scroll || 0, act = S.active || 0;
+    $app.innerHTML = '<header class="bar" id="bar">' +
+      '<span class="ttl">' + esc(fld(S.p, 'title')) + ' · ' + esc(fld(S.p, 'booklet')) + ' – ' + esc(S.p.code) + '</span>' +
+      '<span class="qind" id="qind" aria-live="polite">' + t('प्र. ' + (act || 1), 'Q' + (act || 1)) + '</span>' +
       '<span class="timer" id="timer" aria-label="' + t('शेष समय', 'Time left') + '">' + mmss(S.left) + '</span>' +
-      '<button type="button" class="btn only-narrow" data-act="omr">OMR <b class="cnt">' + answered() + '</b>/' + S.list.length + '</button>' +
-      '<button type="button" class="btn" data-act="rough">' + t('रफ़', 'Rough') + '</button>' +
-      langSwitcherHtml() +
-      '<button type="button" class="btn sub" data-act="submit">' + t('जमा करें', 'Submit') + '</button></div>' +
-      '<div class="layout"><div class="main"><div class="sheet" id="sheet"></div></div><aside class="side" id="side">' + omrHtml() + '</aside></div>' +
-      '<div class="nav"><button type="button" class="btn" data-act="prev">◀ ' + t('पिछला', 'Prev') + '</button><select id="pgsel" aria-label="' + t('पृष्ठ चुनें', 'Go to page') + '">' + opts + '</select><button type="button" class="btn" data-act="next">' + t('अगला', 'Next') + ' ▶</button></div>';
-    document.getElementById('pgsel').onchange = function () { focusActiveQ = null; showPage(+this.value); };
+      '<button type="button" class="btn omrbtn only-narrow" data-act="omr" aria-label="' + t('OMR उत्तर-पत्रिका खोलें', 'Open OMR answer sheet') + '">OMR <b class="cnt">' + answered() + '</b>/' + S.list.length + '</button>' +
+      langSwitcherHtml(true) +
+      '<button type="button" class="btn sub" data-act="submit"><span class="x-long">' + t('जमा करें', 'Submit') + '</span><span class="x-short">' + t('जमा', 'Submit') + '</span></button>' +
+      '</header>' +
+      '<div class="layout"><div class="main"><div class="sheet exam" id="sheet">' + paperStream(S.p, S.ans, false) + '</div></div>' +
+      '<aside class="side" id="side">' + omrHtml() + '</aside></div>';
     document.title = mmss(S.left) + ' · ' + fld(S.p, 'title');
-    showPage(S.page, true, focusActiveQ);
     clearInterval(tick); tick = setInterval(onTick, 1000);
-  }
-  function showPage(i, quiet, focusQ) {
-    i = Math.max(0, Math.min(S.pages.length - 1, i));
-    S.page = i;
-    var sh = document.getElementById('sheet'), pg = S.pages[i];
-    sh.innerHTML = renderPage(S.p, pg, S.ans, false);
-    sh.className = 'sheet'; void sh.offsetWidth; if (!quiet) sh.className = 'sheet turn';
-    document.getElementById('pgsel').value = i;
-    var qi = document.getElementById('qind');
-    if (qi) qi.textContent = qRangeLabel(pg, focusQ || null);
-    all('.omr .r').forEach(function (r) { var n = +r.getAttribute('data-r'); r.className = 'r' + (n >= pg.qs[0].n && n <= pg.qs[pg.qs.length - 1].n ? ' cur' : ''); });
-    var b = all('.nav [data-act="prev"],.nav [data-act="next"]');
-    b[0].disabled = i === 0; b[1].textContent = i === S.pages.length - 1 ? t('समाप्त ✔', 'Finish ✔') : t('अगला ▶', 'Next ▶');
-    if (focusQ) { var el = document.getElementById('q' + focusQ); if (el && el.scrollIntoView) el.scrollIntoView({ block: 'center' }); }
-    else if (!quiet) window.scrollTo(0, 0);
-    save();
+    qEls = all('#sheet .q');
+    setActive(act || 1);
+    /* keep the reading position when re-rendering (language switch) or resuming:
+       the anchored question is put back at the same height on screen, which is
+       stable even though Hindi and English text have different lengths. */
+    window.scrollTo(0, 0);
+    var anchor = S.anchor, anchored = anchor && anchor.q ? document.getElementById('q' + anchor.q) : null;
+    if (anchored) window.scrollTo(0, Math.max(0, anchored.getBoundingClientRect().top + scrollPos() - anchor.off));
+    else if (y > 0) window.scrollTo(0, y);
+    S.anchor = null;
+    scrollSpy();
   }
   function setAns(n, o) {
     if (!S || view !== 'exam') return;
     var cur = S.ans[n];
     if (S.strict && cur) { toast(t('सख्त OMR: एक बार भरा हुआ गोला बदला नहीं जा सकता।', 'Strict OMR: once filled, a circle cannot be changed.')); return; }
     S.ans[n] = cur === o ? null : o;
-    focusActiveQ = n;
-    var qi = document.getElementById('qind');
-    if (qi) qi.textContent = t('प्र. ' + n, 'Q' + n);
+    setActive(n);
     var v = S.ans[n];
     all('[data-q="' + n + '"][data-o]').forEach(function (el) {
       var on = el.getAttribute('data-o') === v;
@@ -387,12 +415,17 @@
     all('.cnt').forEach(function (el) { el.textContent = answered(); });
     save();
   }
+  /* OMR number tapped: close the drawer and scroll straight to that question */
   function gotoQ(n) {
-    focusActiveQ = n;
-    for (var i = 0; i < S.pages.length; i++) {
-      var q = S.pages[i].qs;
-      if (n >= q[0].n && n <= q[q.length - 1].n) { closeDrawer(); showPage(i, true, n); return; }
-    }
+    if (!S || !n) return;
+    closeDrawer();
+    setActive(n);
+    var el = document.getElementById('q' + n);
+    if (!el) return;
+    if (typeof el.scrollIntoView === 'function') el.scrollIntoView({ block: 'start' });
+    else window.scrollTo(0, Math.max(0, el.offsetTop - 60));
+    S.scroll = scrollPos();
+    save();
   }
   function onTick() {
     if (!S) return;
@@ -413,8 +446,7 @@
     d.innerHTML = '<div class="drawer-panel"><div class="drawer-top"><button type="button" class="btn small" data-act="closeomr">✕ ' + t('बन्द करें', 'Close') + '</button></div>' + omrHtml() + '</div>';
     d.onclick = function (e) { if (e.target === d) closeDrawer(); };
     document.body.appendChild(d);
-    var pg = S.pages[S.page];
-    all('.r', d).forEach(function (r) { var n = +r.getAttribute('data-r'); if (n >= pg.qs[0].n && n <= pg.qs[pg.qs.length - 1].n) r.className = 'r cur'; });
+    all('.r', d).forEach(function (r) { r.className = 'r' + (+r.getAttribute('data-r') === S.active ? ' cur' : ''); });
     var c = d.querySelector('.r.cur'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'center' });
   }
   function closeDrawer() { var d = document.getElementById('drawer'); if (d) d.parentNode.removeChild(d); }
@@ -432,40 +464,16 @@
   }
   function finish(auto) {
     if (!S) return;
-    clearInterval(tick); closeModal(); closeDrawer(); closePad();
+    clearInterval(tick); closeModal(); closeDrawer();
     var p = S.p, keyStr = (lang === 'hi' && p.key_hi) ? p.key_hi : p.key, res = { ans: S.ans, used: S.total - Math.max(0, S.left), when: Date.now(), auto: !!auto, lang: lang }, c = 0;
     S.list.forEach(function (x) { if (S.ans[x.q.n] && S.ans[x.q.n] === keyStr.charAt(x.q.n - 1)) c++; });
     set('last:' + p.id, res); set('run:' + p.id, null);
     var best = get('best:' + p.id, null), m = c * MARK;
     if (!best || m > parseFloat(best.m)) set('best:' + p.id, { m: marks(c), max: marks(S.list.length) });
-    S = null; focusActiveQ = null;
+    S = null;
     if (location.hash === '#/p/' + p.id + '/result') route(); else location.hash = '#/p/' + p.id + '/result';
     if (auto) toast(t('समय समाप्त — पेपर अपने आप जमा हो गया।', 'Time over — paper submitted automatically.'), 4000);
   }
-
-  /* rough work pad */
-  var pad = null;
-  function openPad() {
-    if (!pad) {
-      pad = document.createElement('div'); pad.className = 'pad';
-      pad.innerHTML = '<div class="phead"><span id="padttl"></span><button type="button" class="btn small" id="padclr"></button><button type="button" class="btn small" id="padcls"></button></div><canvas></canvas>';
-      document.body.appendChild(pad);
-      var cv = pad.querySelector('canvas'), cx = cv.getContext('2d'), down = false, r = window.devicePixelRatio || 1;
-      cv.width = cv.clientWidth * r; cv.height = cv.clientHeight * r; cx.scale(r, r); cx.lineWidth = 2; cx.lineCap = 'round'; cx.strokeStyle = '#101b4a';
-      var pos = function (e) { var b = cv.getBoundingClientRect(), pt = e.touches ? e.touches[0] : e; return [pt.clientX - b.left, pt.clientY - b.top]; };
-      var st = function (e) { down = true; var q = pos(e); cx.beginPath(); cx.moveTo(q[0], q[1]); e.preventDefault(); };
-      var mv = function (e) { if (!down) return; var q = pos(e); cx.lineTo(q[0], q[1]); cx.stroke(); e.preventDefault(); };
-      var en = function () { down = false; };
-      if (window.PointerEvent) { cv.addEventListener('pointerdown', st); cv.addEventListener('pointermove', mv); window.addEventListener('pointerup', en); }
-      else { cv.addEventListener('mousedown', st); cv.addEventListener('mousemove', mv); window.addEventListener('mouseup', en); cv.addEventListener('touchstart', st, { passive: false }); cv.addEventListener('touchmove', mv, { passive: false }); cv.addEventListener('touchend', en); }
-      pad.clear = function () { cx.clearRect(0, 0, cv.width, cv.height); };
-    }
-    document.getElementById('padttl').textContent = t('कच्चे कार्य के लिए स्थान', 'SPACE FOR ROUGH WORK');
-    var bClr = document.getElementById('padclr'); bClr.textContent = t('साफ़ करें', 'Clear'); bClr.setAttribute('data-act', 'clearpad');
-    var bCls = document.getElementById('padcls'); bCls.textContent = '✕ ' + t('पेपर पर लौटें', 'Back to paper'); bCls.setAttribute('data-act', 'closepad');
-    pad.hidden = false;
-  }
-  function closePad() { if (pad) pad.hidden = true; }
 
   /* ---------- RESULT + REVIEW ---------- */
   function result(p) {
@@ -486,7 +494,7 @@
       '<h2>' + t('परिणाम', 'RESULT') + ' – ' + esc(fld(p, 'title')) + '</h2>' +
       '<p style="text-align:center;margin:0">' + esc(fld(p, 'booklet')) + ' · ' + t('कोड ', 'Code ') + esc(p.code) + ' · ' + esc(fld(p, 'date')) + (name ? '<br>' + t('परीक्षार्थी: ', 'Candidate: ') + '<b>' + esc(name) + '</b>' : '') + '</p>' +
       '<div class="score"><b>' + marks(T.c) + '</b>' + t(marks(T.n) + ' अंकों में से · ' + Math.round(T.c * 100 / T.n) + '%', 'out of ' + marks(T.n) + ' marks · ' + Math.round(T.c * 100 / T.n) + '%') + '</div>' +
-      '<div class="tblwrap"><table><tr><th>' + t('खण्ड', 'Section') + '</th><th>' + t('प्रश्न', 'Qs') + '</th><th>' + t('प्रयास', 'Attempted') + '</th><th>' + t('सही', 'Correct') + '</th><th>' + t('ग़लत', 'Wrong') + '</th><th>' + t('अंक', 'Marks') + '</th><th>%</th></tr>' + rows +
+      '<div class="tblwrap"><table><tr><th>' + t('खण्ड', 'Section') + '</th><th>' + t('प्रश्न', 'Qs') + '</th><th>' + t('प्रयास', '<span class="h-l">Attempted</span><span class="h-s">Att.</span>') + '</th><th>' + t('सही', '<span class="h-l">Correct</span><span class="h-s">Corr.</span>') + '</th><th>' + t('ग़लत', '<span class="h-l">Wrong</span><span class="h-s">Wrong</span>') + '</th><th>' + t('अंक', 'Marks') + '</th><th>%</th></tr>' + rows +
       '<tr><th>' + t('कुल योग', 'Total') + '</th><th>' + T.n + '</th><th>' + T.a + '</th><th>' + T.c + '</th><th>' + (T.a - T.c) + '</th><th>' + marks(T.c) + ' / ' + marks(T.n) + '</th><th>' + Math.round(T.c * 100 / T.n) + '%</th></tr></table></div>' +
       '<p style="text-align:center">' + t('लिया गया समय: ', 'Time used: ') + '<b>' + mmss(res.used) + '</b>' + (res.auto ? t(' (समय समाप्त, स्वतः जमा)', ' (time over, auto-submitted)') : '') + ' · ' + t('छोड़े गए: ', 'Not attempted: ') + '<b>' + (T.n - T.a) + '</b></p>' +
       '<p style="font-size:13.5px">' + t(
@@ -504,23 +512,29 @@
     var res = get('last:' + p.id, null) || { ans: {} };
     var keyStr = resKey(p, res);
     var forcePassLang = (p.langgen && res.lang) ? res.lang : null;
-    var h = '<div class="bar"><span class="ttl" style="display:block">' + t('उत्तर समीक्षा', 'Answer review') + ' · ' + esc(fld(p, 'title')) + '</span>' +
+    var h = '<div class="bar"><span class="ttl">' + t('उत्तर समीक्षा', 'Answer review') + ' · ' + esc(fld(p, 'title')) + '</span>' +
       langSwitcherHtml() +
       '<a class="btn" href="#/p/' + p.id + '/result">' + t('परिणाम', 'Result') + '</a><a class="btn sub" href="#/">' + t('होम', 'Home') + '</a></div>' +
       '<div class="filter no-print"><button type="button" class="btn small primary" data-act="flt" data-f="">' + t('सभी', 'All') + '</button>' +
       '<button type="button" class="btn small" data-act="flt" data-f="bad">' + t('ग़लत', 'Wrong') + '</button>' +
       '<button type="button" class="btn small" data-act="flt" data-f="skip">' + t('छोड़े गए', 'Not attempted') + '</button>' +
-      '<button type="button" class="btn small" data-act="flt" data-f="ok">' + t('सही', 'Correct') + '</button></div><div class="review" id="rev">';
-    buildPages(p, forcePassLang).forEach(function (pg) { h += '<div class="sheet">' + renderPage(p, pg, res.ans, true, keyStr) + '</div>'; });
-    $app.innerHTML = h + '</div>';
+      '<button type="button" class="btn small" data-act="flt" data-f="ok">' + t('सही', 'Correct') + '</button></div>' +
+      '<div class="review sheet" id="rev">' + paperStream(p, res.ans, true, keyStr, forcePassLang) + '</div>';
+    $app.innerHTML = h;
+    if (revFilter) filter(revFilter, document.querySelector('.filter [data-f="' + revFilter + '"]'));
     document.title = t('उत्तर समीक्षा', 'Review') + ' · ' + fld(p, 'title');
     window.scrollTo(0, 0);
   }
   function filter(f, btn) {
+    revFilter = f || '';
     all('.filter .btn').forEach(function (b) { b.className = 'btn small' + (b === btn ? ' primary' : ''); });
     all('#rev .q').forEach(function (q) { q.hidden = !!f && q.getAttribute('data-st') !== f; });
-    all('#rev .sheet').forEach(function (s) { s.hidden = !!f && !s.querySelector('.q:not([hidden])'); });
-    all('#rev .passage, #rev .dir, #rev .cap, #rev .rough').forEach(function (e) { e.hidden = !!f; });
+    /* hide directions / passage text / headers while filtering, never a question container */
+    all('#rev .passage, #rev .dir, #rev .cap, #rev .part-h, #rev .sec-h, #rev .runhead').forEach(function (e) { e.hidden = !!f; });
+    all('#rev section.sec').forEach(function (s) {
+      var any = s.querySelector('.q:not([hidden])');
+      s.hidden = !!f && !any;
+    });
   }
   function switchLang(next) {
     if (next !== 'hi' && next !== 'en') return;
@@ -530,9 +544,14 @@
     document.documentElement.lang = lang;
     if (view === 'home') return home();
     if (view === 'cover' && curPaper) return cover(curPaper);
-    if (view === 'exam' && S) return examView();
-    if (view === 'result' && curPaper) return result(curPaper);
-    if (view === 'review' && curPaper) return review(curPaper);
+    if (view === 'exam' && S) {
+      var aq = S.active ? document.getElementById('q' + S.active) : null;
+      S.anchor = aq ? { q: S.active, off: aq.getBoundingClientRect().top } : null;
+      S.scroll = scrollPos();
+      return examView();
+    }
+    if (view === 'result' && curPaper) { var ry = scrollPos(); result(curPaper); window.scrollTo(0, ry); return; }
+    if (view === 'review' && curPaper) { var vy = scrollPos(); review(curPaper); window.scrollTo(0, vy); return; }
     route();
   }
 
@@ -543,16 +562,11 @@
     if (act === 'lang') switchLang(el.getAttribute('data-lang'));
     else if (act === 'ans') { if (!el.disabled) setAns(+el.getAttribute('data-q'), el.getAttribute('data-o')); }
     else if (act === 'goto') gotoQ(+el.getAttribute('data-q'));
-    else if (act === 'prev') { focusActiveQ = null; showPage(S.page - 1); }
-    else if (act === 'next') { if (S.page === S.pages.length - 1) askSubmit(); else { focusActiveQ = null; showPage(S.page + 1); } }
     else if (act === 'omr') openDrawer();
     else if (act === 'closeomr') closeDrawer();
     else if (act === 'submit') askSubmit();
     else if (act === 'closemodal') closeModal();
     else if (act === 'finish') finish(false);
-    else if (act === 'rough') openPad();
-    else if (act === 'closepad') closePad();
-    else if (act === 'clearpad') pad.clear();
     else if (act === 'print') window.print();
     else if (act === 'flt') filter(el.getAttribute('data-f'), el);
     else if (act === 'start') {
@@ -566,17 +580,16 @@
     else if (act === 'restart') { closeModal(); set('run:' + el.getAttribute('data-id'), null); location.hash = '#/p/' + el.getAttribute('data-id'); }
   });
   document.addEventListener('keydown', function (e) {
-    if (view !== 'exam' || !S || /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
-    if (e.key === 'ArrowRight' && S.page < S.pages.length - 1) { focusActiveQ = null; showPage(S.page + 1); }
-    else if (e.key === 'ArrowLeft') { focusActiveQ = null; showPage(S.page - 1); }
-    else if (e.key === 'Escape') { closeDrawer(); closeModal(); closePad(); }
+    if (e.key === 'Escape') { closeDrawer(); closeModal(); }
   });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   document.addEventListener('visibilitychange', function () { if (S) { onTick(); save(); } });
   window.addEventListener('beforeunload', function () { if (S) save(); });
 
   function route() {
     var parts = location.hash.replace(/^#\/?/, '').split('/');
-    closeDrawer(); closeModal(); closePad();
+    closeDrawer(); closeModal();
     if (parts[0] !== 'p' || !meta(parts[1])) { leaveExam(); return home(); }
     var id = parts[1], sub = parts[2] || '';
     if (sub !== 'exam') leaveExam();
